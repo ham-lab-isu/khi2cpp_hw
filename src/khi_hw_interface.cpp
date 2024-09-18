@@ -162,23 +162,19 @@ namespace khi2cpp_hw
 
         std::vector<hardware_interface::StateInterface> state_interfaces;
 
+        // read data from the KRNX driver
         driver_->readData(cont_no_, data_);
 
-        // this needs edited to get joint_position_ and joint_velocities_ from the updated data_ member after readData
-        for (auto i = 0ul; i < joint_velocities_command_.size(); i++)
+        // assign data_ values to the joint_velocities and joint_position_ members
+        for (auto i = 0ul; i < joint_position_.size(); i++)
         {
-            // loop through the joint_velocities_command_ member vector and calculate the position (double)
-            // and assign that position into the joint_position_ member vector of (doubles)
-            joint_velocities_[i] = joint_velocities_command_[i];
-            joint_position_[i] += joint_velocities_command_[i] * period.seconds();
+            joint_velocities_[i] = data_.arm[0].vel[i];
+            joint_position_[i] = data_.arm[0].pos[i];
         }
 
-        for (auto i = 0ul; i < joint_position_command_.size(); i++)
-        {
-            // loop through the joint_positions_command_ member vector
-            // and assign any joint_position_command_ (double) into the joint_position_ vector of (doubles)
-            joint_position_[i] = joint_position_command_[i];
-        }
+        // pull the pos/vel data from data_ and assign to the joint_velocities_ and joint_position_ vectors (double)
+
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %d, %d, %d, %d, %d, %d",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
 
         RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
 
@@ -197,7 +193,7 @@ namespace khi2cpp_hw
         data_.arm[0].pos[0] = cmd[0].get_value();
 
         driver_->writeData(cont_no_, data_);
-        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f", data_.arm[0].pos[0]);
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
 
         //client->write(data_);
         return return_type::OK;
