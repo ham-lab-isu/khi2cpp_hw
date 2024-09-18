@@ -1,53 +1,23 @@
 cmake_minimum_required(VERSION 3.8)
-
-# Title
-project(khi2cpp_hw VERSION 1.0)
+project(khi2cpp_hw)
 
 set(CMAKE_CXX_STANDARD 14)
 
-
-
-find_package(ament_cmake REQUIRED)
-find_package(backward_ros REQUIRED)
-find_package(controller_manager REQUIRED)
-find_package(controller_manager_msgs REQUIRED)
-find_package(geometry_msgs REQUIRED)
-find_package(hardware_interface REQUIRED)
-find_package(pluginlib REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(rclcpp_lifecycle REQUIRED)
-find_package(rclpy REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(std_srvs REQUIRED)
-find_package(tf2_geometry_msgs REQUIRED)#
-find_package(rcpputils REQUIRED)
-find_package(urdf REQUIRED)
-find_package(builtin_interfaces REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-find_package(kdl_parser REQUIRED)
-#find_package(joint_limits REQUIRED)
-
-
-include_directories(include)
-
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
 
 # find dependencies
 set(HW_IF_INCLUDE_DEPENDS
-  controller_manager
-  controller_manager_msgs
-  geometry_msgs
-  hardware_interface
   pluginlib
-  rclcpp
-  rclcpp_lifecycle
-  std_msgs
-  std_srvs
-  tf2_geometry_msgs
   rcpputils
+  hardware_interface
   urdf
   builtin_interfaces
   rosidl_default_generators
-  #joint_limits
+  std_msgs
+  geometry_msgs
+  joint_limits
 )
 set(REF_GEN_INCLUDE_DEPENDS
   kdl_parser
@@ -67,6 +37,15 @@ find_package(controller_manager REQUIRED)
 find_package(backward_ros REQUIRED)
 find_package(ament_cmake REQUIRED)
 
+foreach(Dependency IN ITEMS ${HW_IF_INCLUDE_DEPENDS})
+  find_package(${Dependency} REQUIRED)
+endforeach()
+foreach(Dependency IN ITEMS ${REF_GEN_INCLUDE_DEPENDS})
+  find_package(${Dependency} REQUIRED)
+endforeach()
+foreach(Dependency IN ITEMS ${CONTROLLER_INCLUDE_DEPENDS})
+  find_package(${Dependency} REQUIRED)
+endforeach()
 
 
 include_directories(
@@ -80,7 +59,6 @@ if(BUILD_TESTING)
   # the following line skips the linter which checks for copyrights
   # comment the line when a copyright and license is added to all source files
   set(ament_cmake_copyright_FOUND TRUE)
-
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
@@ -138,14 +116,13 @@ find_library(krnx_LIBRARIES libkrnx.so PATHS ${PROJECT_SOURCE_DIR}/lib/${krnx_ar
 #message("Installed the KRNX library: ${krnx_LIBRARIES}")
 
 target_compile_features(khi2cpp_hw PUBLIC cxx_std_17)
-
 target_include_directories(khi2cpp_hw PUBLIC
-                          $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
-                          $<INSTALL_INTERFACE:include/khi2cpp_hw>
+$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
+$<INSTALL_INTERFACE:include/khi2cpp_hw>
 )
 
 # these handle connecting the libraries and executables to library objects (.so files, for example)
-# target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES})
+#target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES})
 target_link_libraries(main PUBLIC khi2cpp_hw ${krnx_LIBRARIES})
 
 
