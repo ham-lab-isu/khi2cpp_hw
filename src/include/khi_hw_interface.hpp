@@ -46,6 +46,12 @@ public:
 
   return_type write(const rclcpp::Time & /*time*/, const rclcpp::Duration & /*period*/) override;
 
+  void close(const int& cont_no);
+  void hold(const int& cont_no);
+  void update();
+  void getPeriodDiff(double& diff);
+  std::string getStateName();
+
 protected:
   /// The size of this vector is (standard_interfaces_.size() x nr_joints)
   std::vector<double> joint_position_command_;
@@ -54,6 +60,8 @@ protected:
   std::vector<double> joint_velocities_;
   std::vector<double> ft_states_;
   std::vector<double> ft_command_;
+
+  int cont_no_ = 0;
 
   std::unordered_map<std::string, std::vector<std::string>> joint_interfaces = {
     {"position", {}}, {"velocity", {}}};

@@ -150,6 +150,9 @@ bool KhiRobotKrnxDriver::initialize( const int& cont_no, const double& period, K
     return_code = krnx_GetKrnxVersion( msg, sizeof(msg) );
     infoPrint( msg );
 
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER IS INITIALIZED -------------");
+
+
     this->in_simulation = in_simulation;
 
     return true;
@@ -171,7 +174,10 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
     {
         setState( cont_no, CONNECTING );
         setState( cont_no, INACTIVE );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER IS OPENING IN SIMULATION -------------");
         return true;
+    } else {
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER IS OPENING THE REAL-ROBOT INTERFACE -------------");
     }
 
 
@@ -185,12 +191,14 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
         if ( !loadDriverParam( cont_no, data ) ) { return false; };
 
         setState( cont_no, INACTIVE );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER SUCCESSFULLY OPENED REAL ROBOT -------------");
         return true;
     }
     else
     {
         retKrnxRes( cont_no, "krnx_Open", return_code, false );
         setState( cont_no, INIT );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER FAILED TO OPEN REAL ROBOT -------------");
         return false;
     }
 }
@@ -221,7 +229,9 @@ bool KhiRobotKrnxDriver::close( const int& cont_no )
     {
         setState( cont_no, DISCONNECTED );
     }
-
+    
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER SUCCESSFULLY CLOSED -------------");
+    
     return retKrnxRes( cont_no, "krnx_Close", return_code, false );
 }
 
@@ -239,15 +249,20 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
     TKrnxProgramInfo program_info;
     int arm_num = data.arm_num;
 
-    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { return false; }
+    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { 
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER COULD NOT BE ACTIVATED (Breakpoint 1) -------------");
+        return false; }
 
     setState( cont_no, ACTIVATING );
-    if ( !conditionCheck( cont_no, data ) ) { return false; }
+    if ( !conditionCheck( cont_no, data ) ) { 
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER COULD NOT BE ACTIVATED (Breakpoint 2) -------------");
+        return false; }
 
     if ( in_simulation )
     {
         setRobotDataHome( cont_no, data );
         setState( cont_no, ACTIVE );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER ACTIVE (IN SIMULATION) -------------");
         return true;
     }
 
@@ -309,6 +324,7 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
     {
         errorPrint( "Failed to sync position" );
         setState( cont_no, ERROR );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER COULD NOT BE ACTIVATED (Breakpoint 3, RTC Sync failure) -------------");
         return false;
     }
 
@@ -331,6 +347,7 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
             {
                 errorPrint( "Failed to activate: timeout" );
                 setState( cont_no, ERROR );
+                RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER COULD NOT BE ACTIVATED (Breakpoint 4, Timeout failure) -------------");
                 return false;
             }
 
@@ -360,10 +377,12 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
         }
     }
 
-    if ( !conditionCheck( cont_no, data ) ) { return false; }
+    if ( !conditionCheck( cont_no, data ) ) { 
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER COULD NOT BE ACTIVATED (Breakpoint 5) -------------");
+        return false; }
 
     setState( cont_no, ACTIVE );
-
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER ACTIVE (REAL ROBOT) -------------");
     return true;
 }
 
@@ -372,7 +391,9 @@ bool KhiRobotKrnxDriver::hold( const int& cont_no, const KhiRobotData& data )
     int state;
     bool ret = true;
 
-    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { return false; }
+    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { 
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER FAILED IN THE 'HOLD' COMMAND -------------");
+        return false; }
 
     state = getState( cont_no );
     if ( state == ACTIVE )
@@ -388,7 +409,9 @@ bool KhiRobotKrnxDriver::deactivate( const int& cont_no, const KhiRobotData& dat
     char msg[1024] = { 0 };
     int error_lamp = 0;
 
-    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { return false; }
+    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { 
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER FAILED DURING DEACTIVATION -------------");
+        return false; }
 
     if ( in_simulation )
     {
@@ -641,6 +664,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             jointPrint( std::string("write"), data );
         }
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
         sim_cnt[cont_no]++;
         return true;
     }
@@ -652,6 +676,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             // JDH this appears to be the critical line - using the pointer p_rtc_data to assign new Krnx data from the object KhiRobotData(KhiRobotArmData)
             p_rtc_data->comp[ano][jt] = (float)(data.arm[ano].cmd[jt] - data.arm[ano].home[jt]);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: ${data.arm[0].cmd[0]} -------------");
         }
     }
 

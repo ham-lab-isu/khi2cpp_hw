@@ -42,7 +42,9 @@ namespace khi2cpp_hw
         data_.robot_name = info_.name;
         data_.arm_num = 0;
         data_.arm[0].jt_num = 0;
-        
+
+        bool in_sim = true;
+
         // assign robot-specific data -> can this data not be grabbed from the URDF? What's our info argument?
         // robot has 6 joints and 2 interfaces
         joint_position_.assign(6, 0);
@@ -79,9 +81,22 @@ namespace khi2cpp_hw
         driver_ = new khi_robot_control::KhiRobotKrnxDriver();
 
         // Call the intialize member function of driver_
-        if( ! driver_->initialize(0, 4, data_, true)) { return CallbackReturn::ERROR;}
+        if( ! driver_->initialize(cont_no_, 4, data_, in_sim )) { 
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
+
+        // Call the "open" member function of driver_
+        if ( ! driver_->open(cont_no_, "192.168.0.2", data_ )) {
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
+
+        // Call the driver activation member function
+        if ( ! driver_->activate(cont_no_, data_)) {
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
 
         // returns success if ... it was a success
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "+++++++++++++ KHI-ROS Hardware Initialization SUCCESS ++++++++++++++");
         return CallbackReturn::SUCCESS;
     }
     // --------------------------------------------------------------------------------------------
@@ -147,6 +162,9 @@ namespace khi2cpp_hw
 
         std::vector<hardware_interface::StateInterface> state_interfaces;
 
+        driver_->readData(cont_no_, data_);
+
+        // this needs edited to get joint_position_ and joint_velocities_ from the updated data_ member after readData
         for (auto i = 0ul; i < joint_velocities_command_.size(); i++)
         {
             // loop through the joint_velocities_command_ member vector and calculate the position (double)
@@ -174,13 +192,64 @@ namespace khi2cpp_hw
     return_type KhiSystem::write(const rclcpp::Time &, const rclcpp::Duration &)
     {
         std::vector<hardware_interface::CommandInterface> cmd = export_command_interfaces();
-        
-        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f", joint_position_[0]);
+
+        // assign values from cmd into data_ member; data.arm[arm_num].cmd[joint_num]
+        data_.arm[0].pos[0] = cmd[0].get_value();
+
+        driver_->writeData(cont_no_, data_);
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f", data_.arm[0].pos[0]);
 
         //client->write(data_);
         return return_type::OK;
     }
     // --------------------------------------------------------------------------------------------
+ 
+    // --------------------------------------------------------------------------------------------
+    // Method for closing the KRNX driver via hardware interface
+    // returns nothing
+    void KhiSystem::close(const int & cont_no_)
+    {
+        driver_->deactivate(cont_no_, data_);
+        driver_->close(cont_no_);
+        rclcpp::shutdown();
+    }
+    // --------------------------------------------------------------------------------------------
+ 
+    // --------------------------------------------------------------------------------------------
+    // Method for holding the KRNX driver via hardware interface
+    // returns nothing
+    void KhiSystem::hold(const int & cont_no_)
+    {
+        driver_->hold(cont_no_, data_);
+    }
+    // --------------------------------------------------------------------------------------------
+ 
+    // --------------------------------------------------------------------------------------------
+    // Method for updating the KRNX driver state via hardware interface
+    // returns nothing
+    void KhiSystem::update()
+    {
+        driver_->updateState(cont_no_, data_);
+    }
+    // --------------------------------------------------------------------------------------------
+ 
+    // --------------------------------------------------------------------------------------------
+    // Method for getting the period difference between HW and real robot
+    // returns nothing
+    void KhiSystem::getPeriodDiff(double& diff)
+    {
+        driver_->getPeriodDiff(cont_no_, diff);
+    }
+    // --------------------------------------------------------------------------------------------
+ 
+    // --------------------------------------------------------------------------------------------
+    // Method for updating the KRNX driver state name via hardware interface
+    // returns nothing
+    std::string KhiSystem::getStateName()
+    {
+        std::string state = driver_->getStateName(cont_no_);
+        return state;
+    }
 
 }  // end of namespace khi2cpp_hw
 // --------------------------------------------------------------------------------------------
