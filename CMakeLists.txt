@@ -67,7 +67,7 @@ if(BUILD_TESTING)
 endif()
 
 # add an executable, target the dependencies
-add_executable(main src/main.cpp)
+add_executable(main src/main.cpp src/khi_krnx_driver.cpp)
 ament_target_dependencies(main PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
 
 # add a library, target the dependencies
@@ -109,8 +109,11 @@ endif()
 
 # This defines the library variable krnx_LIBRARIES which can then be called as ${krnx_LIBRARIES}
 find_library(krnx_LIBRARIES libkrnx.so PATHS ${PROJECT_SOURCE_DIR}/lib/${krnx_arch})
-#message("Found the krnx library at ${krnx_LIBRARIES}")
-#message(STATUS "Found KRNX library at: ${krnx_LIBRARIES}")
+find_library(krnx2_LIBRARIES libkrnx.so.2 PATHS ${PROJECT_SOURCE_DIR}/lib/${krnx_arch})
+
+message("Found KRNX library at: ${krnx_LIBRARIES}")
+message("Found KRNX2 library at: ${krnx2_LIBRARIES}")
+
 
 
 #message("Installed the KRNX library: ${krnx_LIBRARIES}")
@@ -122,8 +125,8 @@ $<INSTALL_INTERFACE:include/khi2cpp_hw>
 )
 
 # these handle connecting the libraries and executables to library objects (.so files, for example)
-#target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES})
-target_link_libraries(main PUBLIC khi2cpp_hw ${krnx_LIBRARIES})
+target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES} ${krnx2_LIBRARIES})
+target_link_libraries(main PUBLIC khi2cpp_hw)
 
 
 # Export hardware plugins
@@ -148,7 +151,7 @@ install(
     TARGETS main
     RUNTIME DESTINATION lib/khi2cpp_hw
 )
-install(FILES ${krnx_LIBRARIES}
+install(FILES ${krnx_LIBRARIES} ${krnx2_LIBRARIES}
   DESTINATION lib
 )
 
