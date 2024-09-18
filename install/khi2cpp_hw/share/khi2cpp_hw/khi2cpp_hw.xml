@@ -1,0 +1,16 @@
+<library path="khi2cpp_hw">
+  <class name="khi2cpp_hw/KhiSystem"
+         type="khi2cpp_hw::KhiSystem"
+         base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Robot hardware plugin for 6 dof robot tutorial.
+    </description>
+  </class>
+  <class name="khi2cpp_hw/KhiController"
+         type="khi2cpp_hw::KhiController"
+         base_class_type="controller_interface::ControllerInterface">
+    <description>
+      Robot controller plugin for 6 dof robot tutorial.
+    </description>
+  </class>
+</library>

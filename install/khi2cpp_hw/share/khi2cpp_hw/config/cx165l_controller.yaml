@@ -1,0 +1,25 @@
+controller_manager:
+  ros_parameters:
+    update_rate: 10 #Hz
+    
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+cx165l_controller:
+  ros__parameters:
+    type: khi2cpp_hw/KhiController
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+
+    command_interfaces:
+      - position
+      - velocity
+
+    state_interfaces:
+      - position
+      - velocity 

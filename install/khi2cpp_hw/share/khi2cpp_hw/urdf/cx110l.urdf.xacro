@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="cx110l">
+
+  <!-- Import cx110l macro -->
+  <xacro:include filename="$(find khi2cpp_hw_description)/cx110l/urdf/cx110l_description.urdf.xacro"/>
+
+  <!-- create link fixed to the "world" -->
+  <link name="world"/>
+
+  <xacro:cx110l_description/>
+
+  <!-- Import cx110l ros2_control description -->
+  <xacro:include filename="$(find khi2cpp_hw)/ros2_control/cx110l.ros2_control.xacro" />
+  <xacro:cx110l_ros2_control name="cx110l"/>
+
+</robot>

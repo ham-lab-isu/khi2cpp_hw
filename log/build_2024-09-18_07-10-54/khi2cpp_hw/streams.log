@@ -1,0 +1,158 @@
+[0.020s] Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake /home/jakob/ros2/khi_jdh/src/khi2cpp_hw -DCMAKE_INSTALL_PREFIX=/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw
+[0.110s] -- The C compiler identification is GNU 11.4.0
+[0.188s] -- The CXX compiler identification is GNU 11.4.0
+[0.198s] -- Detecting C compiler ABI info
+[0.325s] -- Detecting C compiler ABI info - done
+[0.341s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.342s] -- Detecting C compile features
+[0.344s] -- Detecting C compile features - done
+[0.347s] -- Detecting CXX compiler ABI info
+[0.480s] -- Detecting CXX compiler ABI info - done
+[0.491s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.491s] -- Detecting CXX compile features
+[0.492s] -- Detecting CXX compile features - done
+[0.497s] -- Found controller_manager: 2.43.1 (/home/jakob/ros2_ws/install/controller_manager/share/controller_manager/cmake)
+[0.723s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.193s] -- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.221s] -- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.261s] -- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.292s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.342s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.771s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.784s] -- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.850s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.968s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.971s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[1.993s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.997s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.008s] -- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+[2.025s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[2.059s] -- Looking for pthread.h
+[2.179s] -- Looking for pthread.h - found
+[2.180s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[2.324s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[2.324s] -- Found Threads: TRUE  
+[2.551s] -- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+[2.602s] -- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[2.635s] -- Found joint_limits: 2.43.1 (/home/jakob/ros2_ws/install/joint_limits/share/joint_limits/cmake)
+[2.647s] -- Found kdl_parser: 2.6.4 (/opt/ros/humble/share/kdl_parser/cmake)
+[2.697s] -- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+[2.699s] -- Found Eigen3: TRUE (found version "3.4.0") 
+[2.699s] -- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+[2.711s] -- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[3.081s] -- CMAKE_SYSTEM_NAME : Linux
+[3.081s] -- CMAKE_SYSTEM_PROCESSOR : x86_64
+[3.081s] -- CMAKE_HOST_SYSTEM_NAME : Linux
+[3.082s] -- CMAKE_HOST_SYSTEM_PROCESSOR : x86_64
+[3.082s] -- CMAKE_LIBRARY_ARCHITECTURE : x86_64-linux-gnu
+[3.082s] [0mArch set as .*x86_64.*[0m
+[3.096s] -- Configuring done
+[3.217s] -- Generating done
+[3.221s] -- Build files have been written to: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw
+[3.236s] Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake /home/jakob/ros2/khi_jdh/src/khi2cpp_hw -DCMAKE_INSTALL_PREFIX=/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw
+[3.239s] Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --build /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw -- -j4 -l4
+[3.350s] [ 16%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_cnt_interface.cpp.o[0m
+[3.368s] [ 33%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_hw_interface.cpp.o[0m
+[3.372s] [ 50%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_krnx_driver.cpp.o[0m
+[8.002s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kvirtual bool khi_robot_control::KhiRobotKrnxDriver::initialize(const int&, const double&, khi_robot_control::KhiRobotData&, bool)[m[K’:
+[8.002s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:143:94:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kdata[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[8.002s]   143 | bool KhiRobotKrnxDriver::initialize( const int& cont_no, const double& period, [01;35m[KKhiRobotData& data[m[K, const bool in_simulation )
+[8.002s]       |                                                                                [01;35m[K~~~~~~~~~~~~~~^~~~[m[K
+[8.006s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kvirtual bool khi_robot_control::KhiRobotKrnxDriver::activate(const int&, khi_robot_control::KhiRobotData&)[m[K’:
+[8.006s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:233:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::ang_ref[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[8.006s]   233 |     TKrnxCurMotionData motion_data = { 0 [01;35m[K}[m[K;
+[8.006s]       |                                          [01;35m[K^[m[K
+[8.006s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:233:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::cur[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[8.007s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:233:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::enc[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[8.016s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kvirtual bool khi_robot_control::KhiRobotKrnxDriver::hold(const int&, const khi_robot_control::KhiRobotData&)[m[K’:
+[8.016s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:370:72:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kdata[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[8.016s]   370 | bool KhiRobotKrnxDriver::hold( const int& cont_no, [01;35m[Kconst KhiRobotData& data[m[K )
+[8.016s]       |                                                    [01;35m[K~~~~~~~~~~~~~~~~~~~~^~~~[m[K
+[8.019s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kvirtual bool khi_robot_control::KhiRobotKrnxDriver::deactivate(const int&, const khi_robot_control::KhiRobotData&)[m[K’:
+[8.019s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:388:10:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kmsg[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[8.019s]   388 |     char [01;35m[Kmsg[m[K[1024] = { 0 };
+[8.019s]       |          [01;35m[K^~~[m[K
+[8.049s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kbool khi_robot_control::KhiRobotKrnxDriver::setRobotDataHome(const int&, khi_robot_control::KhiRobotData&)[m[K’:
+[8.049s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:582:55:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kcont_no[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-parameter-Wunused-parameter]8;;[m[K]
+[8.049s]   582 | bool KhiRobotKrnxDriver::setRobotDataHome( [01;35m[Kconst int& cont_no[m[K, KhiRobotData& data )
+[8.051s]       |                                            [01;35m[K~~~~~~~~~~~^~~~~~~[m[K
+[8.055s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kvirtual bool khi_robot_control::KhiRobotKrnxDriver::writeData(const int&, const khi_robot_control::KhiRobotData&)[m[K’:
+[8.055s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:624:9:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kidx[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[8.056s]   624 |     int [01;35m[Kidx[m[K, ano, jt;
+[8.056s]       |         [01;35m[K^~~[m[K
+[8.056s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:624:14:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kano[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[8.056s]   624 |     int idx, [01;35m[Kano[m[K, jt;
+[8.056s]       |              [01;35m[K^~~[m[K
+[8.056s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:624:19:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kjt[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-variable-Wunused-variable]8;;[m[K]
+[8.056s]   624 |     int idx, ano, [01;35m[Kjt[m[K;
+[8.056s]       |                   [01;35m[K^~[m[K
+[8.061s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kstd::vector<std::__cxx11::basic_string<char> > khi_robot_control::KhiRobotKrnxDriver::splitString(const string&, const char&)[m[K’:
+[8.061s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:787:16:[m[K [01;35m[Kwarning: [m[Kcomparison of integer expressions of different signedness: ‘[01m[Kint[m[K’ and ‘[01m[Kstd::__cxx11::basic_string<char>::size_type[m[K’ {aka ‘[01m[Klong unsigned int[m[K’} [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wsign-compare-Wsign-compare]8;;[m[K]
+[8.061s]   787 |     if ( [01;35m[Kfirst < str.size()[m[K )
+[8.061s]       |          [01;35m[K~~~~~~^~~~~~~~~~~~[m[K
+[8.066s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:[m[K In member function ‘[01m[Kbool khi_robot_control::KhiRobotKrnxDriver::syncRtcPos(const int&, khi_robot_control::KhiRobotData&)[m[K’:
+[8.066s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:870:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::ang_ref[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[8.066s]   870 |     TKrnxCurMotionData motion_data = { 0 [01;35m[K}[m[K;
+[8.066s]       |                                          [01;35m[K^[m[K
+[8.066s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:870:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::cur[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[8.066s] [01m[K/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/src/khi_krnx_driver.cpp:870:42:[m[K [01;35m[Kwarning: [m[Kmissing initializer for member ‘[01m[KTKrnxCurMotionData::enc[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wmissing-field-initializers-Wmissing-field-initializers]8;;[m[K]
+[15.639s] [ 66%] [32m[1mLinking CXX shared library libkhi2cpp_hw.so[0m
+[16.484s] [ 66%] Built target khi2cpp_hw
+[16.527s] [ 83%] [32mBuilding CXX object CMakeFiles/main.dir/src/main.cpp.o[0m
+[22.341s] [100%] [32m[1mLinking CXX executable main[0m
+[22.836s] [100%] Built target main
+[22.855s] Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --build /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw -- -j4 -l4
+[22.968s] Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --install /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw
+[22.983s] -- Install configuration: ""
+[22.983s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/khi2cpp_hw.xml
+[22.983s] -- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/khi2cpp_hw.xml
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_hw_interface.hpp
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_cnt_interface.hpp
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_robot_driver.h
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_krnx_driver.h
+[22.984s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/krnx.h
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/view_cx110l.launch.py
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control/r6bot.ros2_control.xacro
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control/cx110l.ros2_control.xacro
+[22.985s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/urdf
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/urdf/cx110l.urdf.xacro
+[22.986s] -- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/send_trajectory.launch.py
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/r6bot_controller.launch copy.py
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/cx110l_controller.launch.py
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config
+[22.986s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/cx165l_controller.yaml
+[22.987s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/r6bot_controller.yaml
+[22.987s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/cx110l_controller.yaml
+[22.987s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/khi2cpp_hw/main
+[22.989s] -- Set runtime path of "/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/khi2cpp_hw/main" to ""
+[22.989s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/libkrnx.so
+[22.990s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin/main
+[22.991s] -- Set runtime path of "/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin/main" to ""
+[22.991s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/library_path.sh
+[22.991s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/library_path.dsv
+[22.992s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/package_run_dependencies/khi2cpp_hw
+[22.992s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/parent_prefix_path/khi2cpp_hw
+[22.992s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/ament_prefix_path.sh
+[22.992s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/ament_prefix_path.dsv
+[22.993s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/path.sh
+[22.993s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/path.dsv
+[22.993s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.bash
+[22.993s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.sh
+[22.993s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.zsh
+[22.994s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.dsv
+[22.994s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.dsv
+[22.994s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/packages/khi2cpp_hw
+[22.994s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/khi2cpp_hw
+[22.994s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/controller_interface__pluginlib__plugin/khi2cpp_hw
+[22.995s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport.cmake
+[22.995s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport-noconfig.cmake
+[22.995s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/ament_cmake_export_targets-extras.cmake
+[22.995s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/ament_cmake_export_dependencies-extras.cmake
+[22.996s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/khi2cpp_hwConfig.cmake
+[22.996s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/khi2cpp_hwConfig-version.cmake
+[22.996s] -- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.xml
+[22.999s] Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --install /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw

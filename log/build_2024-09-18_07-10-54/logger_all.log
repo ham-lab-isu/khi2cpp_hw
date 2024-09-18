@@ -1,0 +1,136 @@
+[0.117s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--packages-select', 'khi2cpp_hw']
+[0.117s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=False, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=4, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=['khi2cpp_hw'], packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x789baf6a3160>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x789baf6a2860>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x789baf6a2860>>)
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.300s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.301s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.301s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.316s] DEBUG:colcon.colcon_core.package_identification:Package '.' with type 'ros.ament_cmake' and name 'khi2cpp_hw'
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.316s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.337s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.338s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/jakob/ros2/khi_jdh/install/khi2cpp' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.338s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/jakob/ros2/khi_jdh/install/khi_robot_msgs' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.338s] WARNING:colcon.colcon_ros.prefix_path.ament:The path '/home/jakob/ros2/khi_jdh/install/khi2py' in the environment variable AMENT_PREFIX_PATH doesn't exist
+[0.341s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/jakob/ros2/khi_jdh/install/khi2cpp' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.341s] WARNING:colcon.colcon_ros.prefix_path.catkin:The path '/home/jakob/ros2/khi_jdh/install/khi_robot_msgs' in the environment variable CMAKE_PREFIX_PATH doesn't exist
+[0.342s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 2 installed packages in /home/jakob/ros2/khi_jdh/install
+[0.344s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 59 installed packages in /home/jakob/ros2_ws/install
+[0.347s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 328 installed packages in /opt/ros/humble
+[0.362s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_args' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_target' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_clean_cache' from command line to 'False'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_clean_first' from command line to 'False'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'cmake_force_configure' from command line to 'False'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'ament_cmake_args' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'catkin_cmake_args' from command line to 'None'
+[0.431s] Level 5:colcon.colcon_core.verb:set package 'khi2cpp_hw' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.431s] DEBUG:colcon.colcon_core.verb:Building package 'khi2cpp_hw' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw', 'merge_install': False, 'path': '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw', 'symlink_install': False, 'test_result_base': None}
+[0.431s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.432s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.433s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw' with build type 'ament_cmake'
+[0.433s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw'
+[0.435s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.435s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.435s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.453s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake /home/jakob/ros2/khi_jdh/src/khi2cpp_hw -DCMAKE_INSTALL_PREFIX=/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw
+[3.669s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake /home/jakob/ros2/khi_jdh/src/khi2cpp_hw -DCMAKE_INSTALL_PREFIX=/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw
+[3.672s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --build /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw -- -j4 -l4
+[23.288s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --build /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw -- -j4 -l4
+[23.401s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --install /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw
+[23.431s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(khi2cpp_hw)
+[23.432s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/jakob/ros2/khi_jdh/install/khi2py:/home/jakob/ros2_ws/install/rqt_joint_trajectory_controller:/home/jakob/ros2_ws/install/rqt_controller_manager:/home/jakob/ros2_ws/install/ros2controlcli:/home/jakob/ros2_ws/install/ros2_controllers_test_nodes:/home/jakob/ros2_ws/install/ros2_control_demo_testing:/opt/ros/humble /usr/bin/cmake --install /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw
+[23.434s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw' for CMake module files
+[23.434s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw' for CMake config files
+[23.435s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'cmake_prefix_path')
+[23.435s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.ps1'
+[23.436s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.dsv'
+[23.436s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.sh'
+[23.437s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib'
+[23.437s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'ld_library_path_lib')
+[23.437s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.ps1'
+[23.438s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.dsv'
+[23.438s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.sh'
+[23.438s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin'
+[23.438s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'path')
+[23.439s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.ps1'
+[23.439s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.dsv'
+[23.439s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.sh'
+[23.440s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/pkgconfig/khi2cpp_hw.pc'
+[23.440s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/python3.10/site-packages'
+[23.440s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin'
+[23.440s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'pythonscriptspath')
+[23.441s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.ps1'
+[23.441s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.dsv'
+[23.441s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.sh'
+[23.442s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.ps1'
+[23.443s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.dsv'
+[23.443s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.sh'
+[23.444s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.bash'
+[23.445s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.zsh'
+[23.445s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/colcon-core/packages/khi2cpp_hw)
+[23.540s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(khi2cpp_hw)
+[23.541s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw' for CMake module files
+[23.541s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw' for CMake config files
+[23.542s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'cmake_prefix_path')
+[23.542s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.ps1'
+[23.542s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.dsv'
+[23.543s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/cmake_prefix_path.sh'
+[23.543s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib'
+[23.543s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'ld_library_path_lib')
+[23.544s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.ps1'
+[23.544s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.dsv'
+[23.544s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/ld_library_path_lib.sh'
+[23.545s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin'
+[23.545s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'path')
+[23.545s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.ps1'
+[23.546s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.dsv'
+[23.546s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/path.sh'
+[23.547s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/pkgconfig/khi2cpp_hw.pc'
+[23.547s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/python3.10/site-packages'
+[23.547s] Level 1:colcon.colcon_core.environment:checking '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin'
+[23.547s] Level 1:colcon.colcon_core.shell:create_environment_hook('khi2cpp_hw', 'pythonscriptspath')
+[23.547s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.ps1'
+[23.548s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.dsv'
+[23.548s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/hook/pythonscriptspath.sh'
+[23.549s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.ps1'
+[23.549s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.dsv'
+[23.550s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.sh'
+[23.550s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.bash'
+[23.551s] INFO:colcon.colcon_core.shell:Creating package script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.zsh'
+[23.551s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/colcon-core/packages/khi2cpp_hw)
+[23.551s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[23.552s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[23.552s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[23.552s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[23.563s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[23.563s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[23.563s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[23.579s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[23.579s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/local_setup.ps1'
+[23.580s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/_local_setup_util_ps1.py'
+[23.582s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/setup.ps1'
+[23.587s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/local_setup.sh'
+[23.588s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/_local_setup_util_sh.py'
+[23.589s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/setup.sh'
+[23.593s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/local_setup.bash'
+[23.593s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/setup.bash'
+[23.597s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/local_setup.zsh'
+[23.597s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/setup.zsh'

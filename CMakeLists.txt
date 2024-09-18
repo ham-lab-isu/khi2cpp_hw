@@ -154,7 +154,7 @@ install(FILES ${krnx_LIBRARIES}
 
 
 # Install the khi2cpp_hw library
-install(TARGETS main 
+install(TARGETS main khi2cpp_hw
   EXPORT export_khi2cpp_hw
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

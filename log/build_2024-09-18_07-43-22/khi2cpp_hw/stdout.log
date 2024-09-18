@@ -1,0 +1,90 @@
+-- Found controller_manager: 2.43.1 (/home/jakob/ros2_ws/install/controller_manager/share/controller_manager/cmake)
+-- Found rosidl_generator_c: 3.1.5 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.5 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.5 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.7 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+-- Found TinyXML2 via Config file: TinyXML2_DIR-NOTFOUND
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found urdf: 2.6.1 (/opt/ros/humble/share/urdf/cmake)
+-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+-- Found joint_limits: 2.43.1 (/home/jakob/ros2_ws/install/joint_limits/share/joint_limits/cmake)
+-- Found kdl_parser: 2.6.4 (/opt/ros/humble/share/kdl_parser/cmake)
+-- Found eigen3_cmake_module: 0.1.1 (/opt/ros/humble/share/eigen3_cmake_module/cmake)
+-- Ensuring Eigen3 include directory is part of orocos-kdl CMake target
+-- Found ament_lint_auto: 0.12.11 (/opt/ros/humble/share/ament_lint_auto/cmake)
+-- CMAKE_SYSTEM_NAME : Linux
+-- CMAKE_SYSTEM_PROCESSOR : x86_64
+-- CMAKE_HOST_SYSTEM_NAME : Linux
+-- CMAKE_HOST_SYSTEM_PROCESSOR : x86_64
+-- CMAKE_LIBRARY_ARCHITECTURE : x86_64-linux-gnu
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/build/khi2cpp_hw
+[35m[1mConsolidate compiler generated dependencies of target khi2cpp_hw[0m
+[ 16%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_hw_interface.cpp.o[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_cnt_interface.cpp.o[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/khi2cpp_hw.dir/src/khi_krnx_driver.cpp.o[0m
+[ 66%] [32m[1mLinking CXX shared library libkhi2cpp_hw.so[0m
+[ 66%] Built target khi2cpp_hw
+[35m[1mConsolidate compiler generated dependencies of target main[0m
+[ 83%] [32m[1mLinking CXX executable main[0m
+[100%] Built target main
+-- Install configuration: ""
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/khi2cpp_hw.xml
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/khi2cpp_hw.xml
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_hw_interface.hpp
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_cnt_interface.hpp
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_robot_driver.h
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/khi_krnx_driver.h
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/include/khi2cpp_hw/krnx.h
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/view_cx110l.launch.py
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control/r6bot.ros2_control.xacro
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/ros2_control/cx110l.ros2_control.xacro
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/urdf
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/urdf/cx110l.urdf.xacro
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/send_trajectory.launch.py
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/r6bot_controller.launch copy.py
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/launch/cx110l_controller.launch.py
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/cx165l_controller.yaml
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/r6bot_controller.yaml
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/config/cx110l_controller.yaml
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/khi2cpp_hw/main
+-- Set runtime path of "/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/khi2cpp_hw/main" to ""
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/lib/libkrnx.so
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin/main
+-- Set runtime path of "/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/bin/main" to ""
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/library_path.sh
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/library_path.dsv
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/package_run_dependencies/khi2cpp_hw
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/parent_prefix_path/khi2cpp_hw
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/ament_prefix_path.sh
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/ament_prefix_path.dsv
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/path.sh
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/environment/path.dsv
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.bash
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.sh
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.zsh
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/local_setup.dsv
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.dsv
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/packages/khi2cpp_hw
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/hardware_interface__pluginlib__plugin/khi2cpp_hw
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/ament_index/resource_index/controller_interface__pluginlib__plugin/khi2cpp_hw
+-- Old export file "/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport.cmake" will be replaced.  Removing files [/home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport-noconfig.cmake].
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport.cmake
+-- Installing: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/export_khi2cpp_hwExport-noconfig.cmake
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/ament_cmake_export_targets-extras.cmake
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/ament_cmake_export_dependencies-extras.cmake
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/khi2cpp_hwConfig.cmake
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/cmake/khi2cpp_hwConfig-version.cmake
+-- Up-to-date: /home/jakob/ros2/khi_jdh/src/khi2cpp_hw/install/khi2cpp_hw/share/khi2cpp_hw/package.xml

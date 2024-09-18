@@ -1,0 +1,17 @@
+source;share/khi2cpp_hw/hook/cmake_prefix_path.ps1
+source;share/khi2cpp_hw/hook/cmake_prefix_path.dsv
+source;share/khi2cpp_hw/hook/cmake_prefix_path.sh
+source;share/khi2cpp_hw/hook/ld_library_path_lib.ps1
+source;share/khi2cpp_hw/hook/ld_library_path_lib.dsv
+source;share/khi2cpp_hw/hook/ld_library_path_lib.sh
+source;share/khi2cpp_hw/hook/path.ps1
+source;share/khi2cpp_hw/hook/path.dsv
+source;share/khi2cpp_hw/hook/path.sh
+source;share/khi2cpp_hw/hook/pythonscriptspath.ps1
+source;share/khi2cpp_hw/hook/pythonscriptspath.dsv
+source;share/khi2cpp_hw/hook/pythonscriptspath.sh
+source;share/khi2cpp_hw/local_setup.bash
+source;share/khi2cpp_hw/local_setup.dsv
+source;share/khi2cpp_hw/local_setup.ps1
+source;share/khi2cpp_hw/local_setup.sh
+source;share/khi2cpp_hw/local_setup.zsh
