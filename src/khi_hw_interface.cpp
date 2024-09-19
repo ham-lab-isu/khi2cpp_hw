@@ -190,7 +190,10 @@ namespace khi2cpp_hw
         std::vector<hardware_interface::CommandInterface> cmd = export_command_interfaces();
 
         // assign values from cmd into data_ member; data.arm[arm_num].cmd[joint_num]
-        data_.arm[0].pos[0] = cmd[0].get_value();
+        for (auto i = 0ul; i < joint_position_.size(); i++)
+        {
+            data_.arm[0].pos[i] = cmd[i].get_value();
+        }
 
         driver_->writeData(cont_no_, data_);
         RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );

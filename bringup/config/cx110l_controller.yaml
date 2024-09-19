@@ -8,7 +8,6 @@ controller_manager:
     cx110l_controller:
       type: khi2cpp_hw/KhiController
 
-
 cx110l_controller:
   ros__parameters:
     joints:
