@@ -7,6 +7,7 @@
   <!-- create link fixed to the "world" -->
   <link name="world"/>
 
+
   <xacro:cx110l_description/>
 
   <!-- Import cx110l ros2_control description -->
