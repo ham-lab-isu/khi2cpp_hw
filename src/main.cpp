@@ -73,7 +73,7 @@ int main(int argc, char ** argv)
     double t = i;
     twist.vel.x(2 * 0.3 * cos(2 * M_PI * t / trajectory_len));
     twist.vel.y(-0.3 * sin(2 * M_PI * t / trajectory_len));
-    twist.vel.z(1.1 * cos(2 * M_PI * t / trajectory_len) );
+    twist.vel.z(3 * cos(2 * M_PI * t / trajectory_len) );
     twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
     // convert cart to joint velocities
