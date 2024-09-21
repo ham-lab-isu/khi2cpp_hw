@@ -55,7 +55,6 @@ def generate_launch_description():
             "cx110l_controller.yaml",
         ]
     )
-    print(robot_controllers.describe())
 
     rviz_config_file = PathJoinSubstitution(
         [FindPackageShare("khi2cpp_hw_description"), "cx110l/rviz", "view_robot.rviz"]

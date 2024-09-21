@@ -11,12 +11,12 @@
 
       <joint name="joint_1">
         <command_interface name="position">
-          <param name="min">${-2*pi}</param>
-          <param name="max">${2*pi}</param>
+          <param name="min">${radians(-160)}</param>
+          <param name="max">${radians(160)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.15</param>
-          <param name="max">3.15</param>
+          <param name="min">${radians(-130)}</param>
+          <param name="max">${radians(130)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -26,12 +26,12 @@
 
       <joint name="joint_2">
         <command_interface name="position">
-          <param name="min">${-2*pi}</param>
-          <param name="max">${2*pi}</param>
+          <param name="min">${radians(-60)}</param>
+          <param name="max">${radians(80)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.15</param>
-          <param name="max">3.15</param>
+          <param name="min">${radians(-125)}</param>
+          <param name="max">${radians(125)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -41,12 +41,12 @@
 
       <joint name="joint_3">
         <command_interface name="position">
-          <param name="min">${-pi}</param>
-          <param name="max">${pi}</param>
+          <param name="min">${radians(-75)}</param>
+          <param name="max">${radians(95)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.15</param>
-          <param name="max">3.15</param>
+          <param name="min">${radians(-125)}</param>
+          <param name="max">${radians(125)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -56,12 +56,12 @@
 
       <joint name="joint_4">
         <command_interface name="position">
-          <param name="min">${-2*pi}</param>
-          <param name="max">${2*pi}</param>
+          <param name="min">${radians(-210)}</param>
+          <param name="max">${radians(210)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.2</param>
-          <param name="max">3.2</param>
+          <param name="min">${radians(-180)}</param>
+          <param name="max">${radians(180)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -71,12 +71,12 @@
 
       <joint name="joint_5">
         <command_interface name="position">
-          <param name="min">${-2*pi}</param>
-          <param name="max">${2*pi}</param>
+          <param name="min">${radians(-120)}</param>
+          <param name="max">${radians(120)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.2</param>
-          <param name="max">3.2</param>
+          <param name="min">${radians(-180)}</param>
+          <param name="max">${radians(180)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
@@ -86,19 +86,18 @@
 
       <joint name="joint_6">
         <command_interface name="position">
-          <param name="min">${-2*pi}</param>
-          <param name="max">${2*pi}</param>
+          <param name="min">${radians(-360)}</param>
+          <param name="max">${radians(360)}</param>
         </command_interface>
         <command_interface name="velocity">
-          <param name="min">-3.2</param>
-          <param name="max">3.2</param>
+          <param name="min">${radians(-280)}</param>
+          <param name="max">${radians(280)}</param>
         </command_interface>
         <state_interface name="position">
           <param name="initial_value">0.0</param>
         </state_interface>
         <state_interface name="velocity"/>
       </joint>
-
 
     </ros2_control>
 
