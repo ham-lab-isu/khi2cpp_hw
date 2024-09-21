@@ -14,7 +14,7 @@
 
 // Jakob D. Hamilton, IMSE, Iowa State University 2024
 // This source file defines the methods for ROS2 Control objects to interact with the hardware methods and members defined in the KRNX driver
-// The KhiSystem (hardware_interface::SystemInterface) object, when utilized in main.cpp, allows ROS2 controllers (JointStateController, JointTrajectoryController, etc)
+// The KhiSystem (hardware_interface::SystemInterface) object allows ROS2 controllers (JointStateController, JointTrajectoryController, etc)
 // to interface with the hardware driver.
 //
 // This code is adapted from Example 7 of the ROS2 Control Demo

@@ -33,8 +33,6 @@ def generate_launch_description():
             ),
         ]
     )
-
-    print(robot_description_content)
     
     robot_description = {"robot_description": robot_description_content}
 

@@ -664,7 +664,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             jointPrint( std::string("write"), data );
         }
-        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
+        RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
         sim_cnt[cont_no]++;
         return true;
     }
@@ -676,7 +676,6 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             // JDH this appears to be the critical line - using the pointer p_rtc_data to assign new Krnx data from the object KhiRobotData(KhiRobotArmData)
             p_rtc_data->comp[ano][jt] = (float)(data.arm[ano].cmd[jt] - data.arm[ano].home[jt]);
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: ${data.arm[0].cmd[0]} -------------");
         }
     }
 

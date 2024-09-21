@@ -71,10 +71,15 @@ int main(int argc, char ** argv)
   {
     // set endpoint twist
     double t = i;
-    twist.vel.x(2 * 0.3 * cos(2 * M_PI * t / trajectory_len));
-    twist.vel.y(-0.3 * sin(2 * M_PI * t / trajectory_len));
-    twist.vel.z(3 * cos(2 * M_PI * t / trajectory_len) );
-    twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
+    //twist.vel.x(2 * 0.3 * cos(2 * M_PI * t / trajectory_len));
+    //twist.vel.y(-0.3 * sin(2 * M_PI * t / trajectory_len));
+    //twist.vel.z(0.5 * cos(2 * M_PI * t / trajectory_len) );
+    //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
+
+    twist.vel.x(-2 * 0.6 * cos(2 * M_PI * t / trajectory_len) + -0.4);
+    twist.vel.y(-0.3 * cos(2 * M_PI * t / trajectory_len));
+    twist.vel.z(-0.05 * cos(2 * M_PI * t / trajectory_len) + -0.4);
+    //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
     // convert cart to joint velocities
     ik_vel_solver_->CartToJnt(joint_positions, twist, joint_velocities);
@@ -99,10 +104,15 @@ int main(int argc, char ** argv)
     trajectory_msg.points.push_back(trajectory_point_msg);
   }
 
-  pub->publish(trajectory_msg);
+  std::chrono::seconds sec(5);
+  std::chrono::nanoseconds dwell = sec;
+  //dwell = std::chrono::nanoseconds(1);
   while (rclcpp::ok())
-  {
-  }
+    {
+        pub->publish(trajectory_msg);
+        rclcpp::sleep_for(dwell);
+    }
+  
 
   return 0;
 }

@@ -14,7 +14,7 @@
 
 // Jakob D. Hamilton, IMSE, Iowa State University 2024
 // This source file defines the methods for ROS2 Control objects to interact with the hardware methods and members defined in the KRNX driver
-// The KhiSystem (hardware_interface::SystemInterface) object, when utilized in main.cpp, allows ROS2 controllers (JointStateController, JointTrajectoryController, etc)
+// The KhiSystem (hardware_interface::SystemInterface) object allows ROS2 controllers (JointStateController, JointTrajectoryController, etc)
 // to interface with the hardware driver.
 //
 // This code is adapted from Example 7 of the ROS2 Control Demos
@@ -174,7 +174,7 @@ namespace khi2cpp_hw
 
         // pull the pos/vel data from data_ and assign to the joint_velocities_ and joint_position_ vectors (double)
 
-        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %d, %d, %d, %d, %d, %d",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
+        RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %d, %d, %d, %d, %d, %d",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
 
         RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
 
@@ -196,7 +196,7 @@ namespace khi2cpp_hw
         }
 
         driver_->writeData(cont_no_, data_);
-        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
+        RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
 
         //client->write(data_);
         return return_type::OK;
@@ -252,6 +252,10 @@ namespace khi2cpp_hw
 
 }  // end of namespace khi2cpp_hw
 // --------------------------------------------------------------------------------------------
+
+int main()
+{
+}
 
 
 #include "pluginlib/class_list_macros.hpp"
