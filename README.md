@@ -39,4 +39,5 @@ The **KhiSystem** object bridges the ROS2 side of the system, i.e., the **KhiCon
 - ```update()```
 - ```getPeriodDiff()```
 - ```getStateName()```
+
 These member functions perform a variety of operations to either get or set values within the state and command interfaces for joint positions and velocities. ```read()``` and ```write()``` perform the bulk of the heavy lifting, directly reading or writing the joint positions and velocities to the KRNX robot driver. The member variables for communicating the state and command for joint position and velocities with **KhiController** are vectors of doubles named ```joint_positions_``` and ```joint_velocities_```. The member variables for communicating motion data with the KRNX driver are ```data_``` and ```driver_```. ```data_``` is a KhiRobotData object that is the carrier for current robot information and is shared within the KRNX driver. ```driver_``` is the KhiRobotKRNXDriver object that calls the member functions for opening, closing, holding, etc. These members call the requisite functions within ```krnx_robot_driver.cpp``` to communicate with the KRNX library and the physical robot controller.
