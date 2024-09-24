@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://wiki.ros.org/xacro" name="cx110l">
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="cx165l">
 
-  <xacro:property name="robot_name" value="cx110l"/>
+  <xacro:property name="robot_name" value="cx165l"/>
 
-  <!-- Import cx110l macro -->
+  <!-- Import cx165l macro -->
   <xacro:include filename="$(find khi2cpp_hw_description)/${robot_name}/urdf/${robot_name}_description.urdf.xacro"/>
 
   <!-- create link fixed to the "world" -->
@@ -12,10 +12,10 @@
   <!-- Import Lab Robot Cell -->
   <xacro:include filename="$(find khi2cpp_hw)/urdf/isu_lab.xacro" />
 
-  <xacro:cx110l_description/>
+  <xacro:cx165l_description/>
 
   <!-- Import cx110l ros2_control description -->
   <xacro:include filename="$(find khi2cpp_hw)/ros2_control/${robot_name}.ros2_control.xacro" />
-  <xacro:cx110l_ros2_control name="${robot_name}"/>
+  <xacro:cx165l_ros2_control name="${robot_name}"/>
 
 </robot>

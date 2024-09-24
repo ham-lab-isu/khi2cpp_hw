@@ -28,7 +28,7 @@ def generate_launch_description():
                 [
                     FindPackageShare("khi2cpp_hw"),
                     "urdf",
-                    "cx110l.urdf.xacro",
+                    "cx110l.urdf.xacro"
                 ]
             ),
         ]

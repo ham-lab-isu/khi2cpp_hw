@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:macro name="cx110l_ros2_control" params="name">
+  <xacro:macro name="cx165l_ros2_control" params="name">
 
     <ros2_control name="${name}" type="system">
 
@@ -15,8 +15,8 @@
 
       <joint name="joint_1">
         <command_interface name="position">
-          <param name="min">${radians(0)}</param>
-          <param name="max">${radians(90)}</param>
+          <param name="min">${radians(-160)}</param>
+          <param name="max">${radians(160)}</param>
         </command_interface>
         <command_interface name="velocity">
           <param name="min">${radians(-130)}</param>
@@ -30,8 +30,8 @@
 
       <joint name="joint_2">
         <command_interface name="position">
-          <param name="min">${radians(-80)}</param>
-          <param name="max">${radians(36)}</param>
+          <param name="min">${radians(-60)}</param>
+          <param name="max">${radians(80)}</param>
         </command_interface>
         <command_interface name="velocity">
           <param name="min">${radians(-125)}</param>
@@ -46,7 +46,7 @@
       <joint name="joint_3">
         <command_interface name="position">
           <param name="min">${radians(-75)}</param>
-          <param name="max">${radians(0)}</param>
+          <param name="max">${radians(95)}</param>
         </command_interface>
         <command_interface name="velocity">
           <param name="min">${radians(-125)}</param>

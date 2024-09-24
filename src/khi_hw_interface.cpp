@@ -38,7 +38,12 @@ namespace khi2cpp_hw
             // if on_init(info) fails, error out
             return CallbackReturn::ERROR;
         }
-        
+        int ip_address_0 = stoi(info_.hardware_parameters["ip_address_0"]);
+        int ip_address_1 = stoi(info_.hardware_parameters["ip_address_1"]);
+        int ip_address_2 = stoi(info_.hardware_parameters["ip_address_2"]);
+        int ip_address_3 = stoi(info_.hardware_parameters["ip_address_3"]);
+
+
         data_.robot_name = info_.name;
         data_.arm_num = 0;
         data_.arm[0].jt_num = 0;
@@ -86,7 +91,8 @@ namespace khi2cpp_hw
             return CallbackReturn::ERROR;}
 
         // Call the "open" member function of driver_
-        if ( ! driver_->open(cont_no_, "192.168.0.2", data_ )) {
+        std::string ip_address_cat = std::to_string(ip_address_0) + std::to_string(ip_address_1) + std::to_string(ip_address_2) + std::to_string(ip_address_3);
+        if ( ! driver_->open(cont_no_, ip_address_cat, data_ )) {
             KhiSystem::close(cont_no_);
             return CallbackReturn::ERROR;}
 

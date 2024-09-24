@@ -76,9 +76,9 @@ int main(int argc, char ** argv)
     //twist.vel.z(0.5 * cos(2 * M_PI * t / trajectory_len) );
     //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
-    twist.vel.x(-2 * 0.6 * cos(2 * M_PI * t / trajectory_len) + -0.4);
+    twist.vel.x(-2 * 0.6 * cos(2 * M_PI * t / trajectory_len));
     twist.vel.y(-0.3 * cos(2 * M_PI * t / trajectory_len));
-    twist.vel.z(-0.05 * cos(2 * M_PI * t / trajectory_len) + -0.4);
+    twist.vel.z(-1 * 0.6 * cos(2 * M_PI * t / trajectory_len));
     //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
     // convert cart to joint velocities
