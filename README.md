@@ -8,7 +8,26 @@ Jakob Hamilton, Iowa State University, 2024
 Requires installation of
 - colcon: ```sudo apt install python3-colcon-common-extensions```
 - rosdep: ```sudo apt install python3-rosdep2```
-- BROKEN: BUILD FROM SOURCE ros2_control: ```sudo apt install ros-humble-ros2-control```
+- BUILD FROM SOURCE ros2_control: 
+## Steps to install ros2_control:
+```bash
+    pip uninstall em 
+    pip uninstall empy 
+    pip install empy==3.3.4 
+    pip install lark --prefer-binary 
+    mkdir -p ~/ros2_control_ws/src  
+    cd ~/ros2_control_ws/src  
+    git clone https://github.com/ros-controls/ros2_control.git -b humble 
+    vcs import < ros2_control/ros2_control.humble.repos 
+    cd ~/ros2_control_ws 
+    sudo apt update  
+    rosdep update --rosdistro humble 
+    rosdep install --from-paths src --ignore-src -r –y 
+    source /opt/ros/humble/setup.bash 
+    cd ~/ros2_control_ws
+```
+
+    colcon build --symlink-install 
 - BROKEN: BUILD FROM SOURCE ros2 controllers: ```sudo apt install ros-rolling-ros2-controllers```
 - vcstool: ```sudo apt install python3-vcstool```
 - khi2cpp_hw_description from source -> move into the workspace/src folder (```cd ~/ros2/khi_jdh``` for example) and ```git clone git@github.com:ham-lab-isu/khi2cpp_hw_description.git```
