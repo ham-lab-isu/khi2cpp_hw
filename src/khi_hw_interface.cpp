@@ -91,7 +91,7 @@ namespace khi2cpp_hw
             return CallbackReturn::ERROR;}
 
         // Call the "open" member function of driver_
-        std::string ip_address_cat = std::to_string(ip_address_0) + std::to_string(ip_address_1) + std::to_string(ip_address_2) + std::to_string(ip_address_3);
+        std::string ip_address_cat = std::to_string(ip_address_0) + "." + std::to_string(ip_address_1) +"."+ std::to_string(ip_address_2)+"."+ std::to_string(ip_address_3);
         if ( ! driver_->open(cont_no_, ip_address_cat, data_ )) {
             KhiSystem::close(cont_no_);
             return CallbackReturn::ERROR;}
