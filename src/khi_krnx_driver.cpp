@@ -184,7 +184,12 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
     setState( cont_no, CONNECTING );
     strncpy( c_ip_address, ip_address.c_str(), sizeof(c_ip_address) );
     infoPrint( "Connecting to real controller: %s", c_ip_address );
+
+    // OPEN THE KRNX API
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER OPENING CONTROLLER %d AT %s ------------", cont_no, c_ip_address);
     return_code = krnx_Open( cont_no, c_ip_address );
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER HAS BEEN OPENED ------------");
+
     if ( return_code == cont_no )
     {
         cont_info[cont_no].ip_address = ip_address;
