@@ -45,7 +45,7 @@ namespace khi2cpp_hw
 
 
         data_.robot_name = info_.name;
-        data_.arm_num = 0;
+        data_.arm_num = 1;
         data_.arm[0].jt_num = 0;
 
         bool in_sim = false;

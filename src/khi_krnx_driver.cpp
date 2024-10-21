@@ -189,6 +189,9 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
     RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER OPENING CONTROLLER %d AT %s ------------", cont_no, c_ip_address);
     return_code = krnx_Open( cont_no, c_ip_address );
     RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER HAS BEEN OPENED, RETURN_CODE %d ------------", return_code);
+    
+    // added for debugging
+    //return_code = cont_no;
 
     if ( return_code == cont_no )
     {
@@ -453,6 +456,7 @@ bool KhiRobotKrnxDriver::deactivate( const int& cont_no, const KhiRobotData& dat
 
 bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data )
 {
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PARAM LOAD ------------");
     char robot_name[64] = { 0 };
     char msg[256] = { 0 };
     TKrnxPanelInfo panel_info;
@@ -469,12 +473,16 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
     for ( int ano = 0; ano < arm_num; ano++ )
     {
         /* Robot Name */
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PARAM LOAD: ano %d; cont_no %d; robot_name %s ------------", ano, cont_no, robot_name);
         return_code = krnx_GetRobotName( cont_no, ano, robot_name );
+        
         if ( strncmp( robot_name, data.robot_name.c_str(), 6 ) != 0 )
         {
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT NAME ERROR %s != %s------------", data.robot_name.c_str(), robot_name);
             errorPrint( "ROS Robot:%s does not match AS:%s", data.robot_name.c_str(), robot_name );
             return false;
         }
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT NAME ASSIGNMENT COMPLETE ------------");
 
         /* AS Switch */
         return_code = execAsMonCmd( cont_no, "TYPE SWITCH(ZDBLREFFLT_MODSTABLE)", msg_buf, sizeof(msg_buf), &error_code );
