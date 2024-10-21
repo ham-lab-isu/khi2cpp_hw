@@ -188,12 +188,14 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
     // OPEN THE KRNX API
     RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER OPENING CONTROLLER %d AT %s ------------", cont_no, c_ip_address);
     return_code = krnx_Open( cont_no, c_ip_address );
-    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER HAS BEEN OPENED ------------");
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER HAS BEEN OPENED, RETURN_CODE %d ------------", return_code);
 
     if ( return_code == cont_no )
     {
         cont_info[cont_no].ip_address = ip_address;
-        if ( !loadDriverParam( cont_no, data ) ) { return false; };
+        if ( !loadDriverParam( cont_no, data ) ) { 
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- FAILED TO LOAD KRNX DRIVER PARAMS ------------");
+            return false; };
 
         setState( cont_no, INACTIVE );
         RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER SUCCESSFULLY OPENED REAL ROBOT -------------");
