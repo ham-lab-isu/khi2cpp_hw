@@ -78,6 +78,7 @@ bool KhiRobotKrnxDriver::retKrnxRes( const int& cont_no, const std::string& name
 {
     if ( ret != KRNX_NOERROR )
     {
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR: %s returned -0x%X -------------", name.c_str(), -ret);
         errorPrint( "%s returned -0x%X", name.c_str(), -ret );
         if ( error ) { setState( cont_no, ERROR ); }
         return false;
