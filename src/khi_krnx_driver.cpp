@@ -700,11 +700,13 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             // JDH this appears to be the critical line - using the pointer p_rtc_data to assign new Krnx data from the object KhiRobotData(KhiRobotArmData)
             p_rtc_data->comp[ano][jt] = (float)(data.arm[ano].cmd[jt] - data.arm[ano].home[jt]);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
         }
     }
 
     for ( int ano = 0; ano < arm_num; ano++ )
     {
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         return_code = krnx_PrimeRtcCompData( cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         if ( !retKrnxRes( cont_no, "krnx_PrimeRtcCompData", return_code ) ) { is_primed = false; }
     }
