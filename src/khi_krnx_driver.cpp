@@ -504,13 +504,16 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
             jt_num = atoi(msg_buf);
             if ( data.arm[ano].jt_num != jt_num )
             {
-                warnPrint( "ROS JT:%d does not match AS:%d", data.arm[ano].jt_num, jt_num );
+                RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"),"ROS JT:%d does not match AS:%d", data.arm[ano].jt_num, jt_num );
             }
         }
 
         return_code = krnx_GetPanelInfo( cont_no, ano, &panel_info );
         if ( retKrnxRes( cont_no, "krnx_GetPanelInfo", return_code ) && ( panel_info.cycle_lamp != 0 ) )
         {
+            // DEBUG
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR AT panel_info.cycle_lamp ------------");
+            
             /* Hold Program */
             return_code = krnx_Hold( cont_no, ano, &error_code );
             if ( !retKrnxRes( cont_no, "krnx_Hold", return_code ) ) { return false; }
@@ -521,18 +524,21 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
         rtcont_info.cyc = (int)(cont_info[cont_no].period/1e+6);
         rtcont_info.buf = KHI_KRNX_BUFFER_SIZE;
         rtcont_info.interpolation = 1;
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX rtcont_info: cyc %d, buf %d, int %d ------------", rtcont_info.cyc, rtcont_info.buf, rtcont_info.interpolation);
         return_code = krnx_SetRtcInfo( cont_no, &rtcont_info );
         retKrnxRes( cont_no, "krnx_SetRtcInfo", return_code );
         krnx_SetRtcCompMask( cont_no, ano, pow( 2, data.arm[ano].jt_num ) - 1 );
 
         /* Kill Program */
         return_code = krnx_Kill( cont_no, ano, &error_code );
-        if ( !retKrnxRes( cont_no, "krnx_Kill", return_code ) ) { return false; }
+        if ( !retKrnxRes( cont_no, "krnx_Kill", return_code ) ) { 
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR: KRNX CONTROLLER KILLING PROGRAM ------------");
+            return false; }
 
         /* Load Program */
         if ( !loadRtcProg( cont_no, data.robot_name.c_str() ) )
         {
-            errorPrint( "Failed to load RTC program");
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "Failed to load RTC program");
             return false;
         }
     }
