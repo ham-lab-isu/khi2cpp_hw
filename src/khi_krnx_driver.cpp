@@ -633,10 +633,10 @@ bool KhiRobotKrnxDriver::setRobotDataHome( const int& cont_no, KhiRobotData& dat
 
     if ( data.robot_name == "null robot" )
     {
-        data.arm[0].home[0] = -45.0f*M_PI/180;
-        data.arm[0].home[1] = 45.0f*M_PI/180;
-        data.arm[1].home[0] = 45.0f*M_PI/180;
-        data.arm[1].home[1] = -45.0f*M_PI/180;
+        data.arm[0].home[0] = -45.0f*M_PI/180.0;
+        data.arm[0].home[1] = 45.0f*M_PI/180.0;
+        data.arm[1].home[0] = 45.0f*M_PI/180.0;
+        data.arm[1].home[1] = -45.0f*M_PI/180.0;
         data.arm[0].home[2] = data.arm[1].home[2] = 90.0f/KHI_KRNX_M2MM;
         data.arm[0].home[3] = data.arm[1].home[3] = 0.0f;
     }

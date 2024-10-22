@@ -83,7 +83,7 @@ namespace khi2cpp_hw
             jt++;
         }
 
-        // Allocate memory for the Krnx driver in memory; driver_ is just a pointer to the actual driver
+        // Allocate space for the Krnx driver in memory; driver_ is just a pointer to the actual driver
         driver_ = new khi_robot_control::KhiRobotKrnxDriver();
 
         // Call the intialize member function of driver_
