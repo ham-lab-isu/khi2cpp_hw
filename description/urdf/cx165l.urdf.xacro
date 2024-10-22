@@ -2,6 +2,7 @@
 <robot xmlns:xacro="http://wiki.ros.org/xacro" name="cx165l">
 
   <xacro:property name="robot_name" value="cx165l"/>
+  <xacro:property name="krnx_name" value="CX165L-BC01"/>
 
   <!-- Import cx165l macro -->
   <xacro:include filename="$(find khi2cpp_hw_description)/${robot_name}/urdf/${robot_name}_description.urdf.xacro"/>
@@ -16,6 +17,6 @@
 
   <!-- Import cx110l ros2_control description -->
   <xacro:include filename="$(find khi2cpp_hw)/ros2_control/${robot_name}.ros2_control.xacro" />
-  <xacro:cx165l_ros2_control name="${robot_name}"/>
+  <xacro:cx165l_ros2_control name="${krnx_name}"/>
 
 </robot>

@@ -576,7 +576,9 @@ bool KhiRobotKrnxDriver::readData( const int& cont_no, KhiRobotData& data )
 
     for ( int ano = 0; ano < arm_num; ano++ )
     {
-        if ( !getCurMotionData( cont_no, ano, &motion_cur[ano] ) ) { return false; }
+        if ( !getCurMotionData( cont_no, ano, &motion_cur[ano] ) ) {
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DID NOT READ CURRENT MOTION DATA ------------");
+            return false; }
 
         if ( motion_data[cont_no][ano].size() >= KRNX_MOTION_BUF )
         {
