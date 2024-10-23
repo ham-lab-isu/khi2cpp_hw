@@ -375,6 +375,7 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
             is_ready = true;
             for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
             {
+                data.arm[ano].cmd[jt] = data.arm[ano].home[jt]; // JDH 2024-10-22
                 diff = data.arm[ano].home[jt]*conv - motion_data.ang[jt];
                 if ( fabs(diff) > KHI_KRNX_ACTIVATE_TH )
                 {
@@ -932,9 +933,10 @@ bool KhiRobotKrnxDriver::syncRtcPos( const int& cont_no, KhiRobotData& data )
         for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
         {
             data.arm[ano].home[jt] = (double)motion_data.ang[jt];
+            //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX HOME ASSIGNMENT for JT=%d is %f", jt, data.arm[ano].home[jt]);
         }
     }
-    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ASSIGNED MOTION DATA TO KhiRobotData OBJECT --------------");
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ASSIGNED MOTION DATA TO KhiRobotData OBJECT HOME --------------");
     return true;
 }
 
