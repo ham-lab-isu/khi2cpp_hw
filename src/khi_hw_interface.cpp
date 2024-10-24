@@ -61,27 +61,6 @@ namespace khi2cpp_hw
         ft_states_.assign(6, 0);
         ft_command_.assign(6, 0);
 
-        int jt = 0;
-        for (const auto & joint : info_.joints)
-        {
-            // Assign HardwareInfo members to the KhiRobotData object
-            data_.arm[0].name[jt] = joint.name;
-            data_.arm[0].type[jt] = 0;
-
-            // Retrieve KhiRobotArm data position and velocity; assign as members in the KhiSystem
-            joint_position_[jt] = data_.arm[0].pos[jt];
-            joint_velocities_[jt] = data_.arm[0].vel[jt];
-
-
-            // loop through the joint (ComponentInfo) objects in the info_ member of KhiSystem (Hardware Interface) object
-            for (const auto & interface : joint.state_interfaces)
-            {
-                // loop through the interface members of each joint member and
-                // append the joint name at the end of the joint_interfaces vector for each interface
-                joint_interfaces[interface.name].push_back(joint.name);
-            }
-            jt++;
-        }
 
         // Allocate space for the Krnx driver in memory; driver_ is just a pointer to the actual driver
         driver_ = new khi_robot_control::KhiRobotKrnxDriver();
@@ -105,6 +84,32 @@ namespace khi2cpp_hw
         // Export the real robot's current position
         //driver_->readData(cont_no_, data_);
         //export_state_interfaces();
+
+
+        int jt = 0;
+        ///////////////////////////////
+        // Does moving this recursion after the driver initialization fix the PrimtRtcData issue?
+        ///////////////////////////////
+        for (const auto & joint : info_.joints)
+        {
+            // Assign HardwareInfo members to the KhiRobotData object
+            data_.arm[0].name[jt] = joint.name;
+            data_.arm[0].type[jt] = 0;
+
+            // Retrieve KhiRobotArm data position and velocity; assign as members in the KhiSystem
+            joint_position_[jt] = joint_position_command_[jt] = data_.arm[0].pos[jt];
+            joint_velocities_[jt] = joint_velocities_command_[jt] = data_.arm[0].vel[jt];
+            RCLCPP_INFO(rclcpp::get_logger("KhiSystem"), "----------- ASSIGNED JT%d initial position as %f", jt+1, joint_position_command_[jt]);
+
+            // loop through the joint (ComponentInfo) objects in the info_ member of KhiSystem (Hardware Interface) object
+            for (const auto & interface : joint.state_interfaces)
+            {
+                // loop through the interface members of each joint member and
+                // append the joint name at the end of the joint_interfaces vector for each interface
+                joint_interfaces[interface.name].push_back(joint.name);
+            }
+            jt++;
+        }
 
         // returns success if ... it was a success
         RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "+++++++++++++ KHI-ROS Hardware Initialization SUCCESS ++++++++++++++");
@@ -157,7 +162,7 @@ namespace khi2cpp_hw
             command_interfaces.emplace_back(joint_name, "velocity", &joint_velocities_command_[ind++]);
         }
 
-            // append any sensor data to the command_interfaces vector
+        // append any sensor data to the command_interfaces vector
         //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
         
         return command_interfaces;
@@ -203,7 +208,8 @@ namespace khi2cpp_hw
         // assign values from cmd into data_ member; data.arm[arm_num].cmd[joint_num]
         for (auto i = 0ul; i < joint_position_.size(); i++)
         {
-            data_.arm[0].pos[i] = cmd[i].get_value();
+            data_.arm[0].cmd[i] = cmd[i].get_value();
+            //RCLCPP_INFO(rclcpp::get_logger("KhiSystem Write Function"), "--------------- KhiSystem writing to jt[%d]: %f --------------", i, cmd[i].get_value());
         }
 
         driver_->writeData(cont_no_, data_);
