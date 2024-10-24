@@ -332,7 +332,7 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
         }
     }
 
-    /* Sync RTC Position */
+    /* Sync RTC Position */ // THIS IS WHAT ESTABLISHES DATA.ARM[ANO].HOME[JT]
     if ( !syncRtcPos( cont_no, data ) )
     {
         errorPrint( "Failed to sync position" );
@@ -375,14 +375,21 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
             is_ready = true;
             for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
             {
-                data.arm[ano].cmd[jt] = data.arm[ano].home[jt]; // JDH 2024-10-22
+                data.arm[ano].cmd[jt] = data.arm[ano].pos[jt] = data.arm[ano].home[jt]; // JDH 2024-10-22
                 diff = data.arm[ano].home[jt]*conv - motion_data.ang[jt];
                 if ( fabs(diff) > KHI_KRNX_ACTIVATE_TH )
                 {
+                    RCLCPP_WARN(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT POSITION DIFFERENCE OVER THRESHOLD VALUE (Breakpoint 4.6) ------------");
                     is_ready = false;
                     break;
                 }
             }
+
+            // JDH 2024-10-23 debugging rtc comp data errors 
+            float comp_limit;
+            return_code = krnx_GetRtcCompLimit(cont_no, ano, &comp_limit);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX Arm[%d] RTC Comp Limit: %f -------------", ano, comp_limit);
+            // end JDH
 
             if ( is_ready )
             {
@@ -694,7 +701,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             jointPrint( std::string("write"), data );
         }
-        RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
+        //RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
         sim_cnt[cont_no]++;
         return true;
     }
@@ -705,16 +712,22 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
         {
             // JDH this appears to be the critical line - using the pointer p_rtc_data to assign new Krnx data from the object KhiRobotData(KhiRobotArmData)
-            p_rtc_data->comp[ano][jt] = (float)(data.arm[ano].cmd[jt] - data.arm[ano].home[jt]);
+            p_rtc_data->comp[ano][jt] = (float)((data.arm[ano].cmd[jt] - data.arm[ano].home[jt]));
+
+            // adding some comp limits just to get it to run
+            if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
+            if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
+            //
+
             RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
         }
     }
 
     for ( int ano = 0; ano < arm_num; ano++ )
     {
-        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
+        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         return_code = krnx_PrimeRtcCompData( cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
-        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %c", status);
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
         if ( !retKrnxRes( cont_no, "krnx_PrimeRtcCompData", return_code ) ) { is_primed = false; }
     }
     if ( !is_primed )
@@ -741,7 +754,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
     }
 
     // JDH Is this what sends the RTC movement data to the hardware (i.e. controller)? YES, see KRNX API manual p77
-    infoPrint("JDH SENDING RTC COMP DATA");
+    //infoPrint("JDH SENDING RTC COMP DATA");
     return_code = krnx_SendRtcCompData( cont_no, p_rtc_data->seq_no );
     p_rtc_data->seq_no++;
 

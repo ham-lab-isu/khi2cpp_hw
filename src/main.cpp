@@ -26,7 +26,7 @@ int main(int argc, char ** argv)
   rclcpp::init(argc, argv);
   auto node = std::make_shared<rclcpp::Node>("main");
   auto pub = node->create_publisher<trajectory_msgs::msg::JointTrajectory>(
-    "/cx110l_controller/joint_trajectory", 10);
+    "/cx165l_controller/joint_trajectory", 10);
 
   
   // get robot description
@@ -72,9 +72,9 @@ int main(int argc, char ** argv)
     // set endpoint twist
     double t = i;
 
-    twist.vel.x(-0.1 * 0.1 * cos(2 * M_PI * t / trajectory_len));
-    //twist.vel.y(-0.3 * cos(2 * M_PI * t / trajectory_len));
-    //twist.vel.z(-0.1 * 0.1 * cos(2 * M_PI * t / trajectory_len));
+    twist.vel.x(0 * 0.6 * cos(2 * M_PI * t / trajectory_len));
+    twist.vel.y(0 * cos(2 * M_PI * t / trajectory_len));
+    twist.vel.z(-1 * 0.6 * cos(2 * M_PI * t / trajectory_len));
     //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
     // convert cart to joint velocities
