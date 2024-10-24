@@ -62,8 +62,8 @@ int main(int argc, char ** argv)
   trajectory_point_msg.positions.resize(chain.getNrOfJoints());
   trajectory_point_msg.velocities.resize(chain.getNrOfJoints());
 
-  double total_time = 3.0;
-  int trajectory_len = 200;
+  double total_time = 10.0;
+  int trajectory_len = 20;
   int loop_rate = trajectory_len / total_time;
   double dt = 1.0 / loop_rate;
 
@@ -72,9 +72,9 @@ int main(int argc, char ** argv)
     // set endpoint twist
     double t = i;
 
-    twist.vel.x(-2 * 0.6 * cos(2 * M_PI * t / trajectory_len));
-    twist.vel.y(-0.3 * cos(2 * M_PI * t / trajectory_len));
-    twist.vel.z(-1 * 0.6 * cos(2 * M_PI * t / trajectory_len));
+    twist.vel.x(-0.1 * 0.1 * cos(2 * M_PI * t / trajectory_len));
+    //twist.vel.y(-0.3 * cos(2 * M_PI * t / trajectory_len));
+    //twist.vel.z(-0.1 * 0.1 * cos(2 * M_PI * t / trajectory_len));
     //twist.rot.y(1 * sin(2 * M_PI * t / trajectory_len));
 
     // convert cart to joint velocities

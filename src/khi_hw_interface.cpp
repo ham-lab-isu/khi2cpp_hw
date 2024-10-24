@@ -48,7 +48,7 @@ namespace khi2cpp_hw
         data_.arm_num = 1;
         data_.arm[0].jt_num = 6;
 
-        bool in_sim = false;
+        bool in_sim = true;
 
         // assign robot-specific data -> can this data not be grabbed from the URDF? What's our info argument?
         // robot has 6 joints and 2 interfaces
