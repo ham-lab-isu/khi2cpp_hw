@@ -146,7 +146,7 @@ bool KhiRobotKrnxDriver::initialize( const int& cont_no, const double& period, K
 
     // robot info
     //cont_info[cont_no].period = period; JDH
-    cont_info[cont_no].period = 4;
+    cont_info[cont_no].period = 4 / 1e+3;
 
 
     return_code = krnx_GetKrnxVersion( msg, sizeof(msg) );
@@ -705,6 +705,9 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         return true;
     }
 
+    // jdh debug
+    //krnx_GetRtcCompData( cont_no, ano, &p_rtc_data->old_comp[ano][0]);
+
     /* convert */
     for ( int ano = 0; ano < arm_num; ano++ )
     {
@@ -717,8 +720,10 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
             //if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
             //if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
             //
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f", ano, jt, data.arm[ano].cmd[jt]);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX     comp[%d][%d] = %f", ano, jt, p_rtc_data->comp[ano][jt]);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX old_comp[%d][0 ] = %f", ano, p_rtc_data->old_comp[ano][jt]);
 
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
         }
     }
 
@@ -726,7 +731,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
     {
         //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         return_code = krnx_PrimeRtcCompData( cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
-        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
+        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
         if ( !retKrnxRes( cont_no, "krnx_PrimeRtcCompData", return_code ) ) { is_primed = false; }
     }
     if ( !is_primed )
