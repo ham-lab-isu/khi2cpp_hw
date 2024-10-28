@@ -11,6 +11,7 @@
         <param name="ip_address_1">168</param>
         <param name="ip_address_2">0</param>
         <param name="ip_address_3">23</param>
+        <param name="period">2</param>
       </hardware>
 
       <joint name="joint_1">

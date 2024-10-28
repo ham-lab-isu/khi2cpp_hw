@@ -43,6 +43,7 @@ int main(int argc, char ** argv)
 
   auto joint_positions = KDL::JntArray(chain.getNrOfJoints());
   auto joint_velocities = KDL::JntArray(chain.getNrOfJoints());
+  //auto joint_accelerations = KDL::JntArray(chain.getNrOfJoints());
   auto twist = KDL::Twist();
   // create KDL solvers
   auto ik_vel_solver_ = std::make_shared<KDL::ChainIkSolverVel_pinv>(chain, 0.0000001);
@@ -61,9 +62,11 @@ int main(int argc, char ** argv)
   trajectory_msgs::msg::JointTrajectoryPoint trajectory_point_msg;
   trajectory_point_msg.positions.resize(chain.getNrOfJoints());
   trajectory_point_msg.velocities.resize(chain.getNrOfJoints());
+  //trajectory_point_msg.accelerations.resize(chain.getNrOfJoints());
 
-  double total_time = 10.0;
-  int trajectory_len = 20;
+
+  double total_time = 3.0;
+  int trajectory_len = 2000;
   int loop_rate = trajectory_len / total_time;
   double dt = 1.0 / loop_rate;
 

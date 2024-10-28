@@ -5,7 +5,6 @@ KHI_KRNX_DRIVER source file defines the methods for communicating with KRNX.h, t
 
 */
 
-#include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/pose.hpp"
 #include "khi_krnx_driver.h"
 

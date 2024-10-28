@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 10 #Hz
+    update_rate: 1000 #Hz
     
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -24,4 +24,29 @@ cx165l_controller:
 
     state_interfaces:
       - position
-      - velocity 
+      - velocity
+    
+    action_monitor_rate: 20.0
+    state_publish_rate: 50.0
+
+    constraints:
+      stopped_velocity_tolerance: 0.1
+      goal_time: 2.0
+      joint_1:
+        trajectory: 0
+        goal: 0.0
+      joint_2:
+        trajectory: 0
+        goal: 0.0
+      joint_3:
+        trajectory: 0
+        goal: 0.0
+      joint_4:
+        trajectory: 0
+        goal: 0.0
+      joint_5:
+        trajectory: 0
+        goal: 0.0
+      joint_6:
+        trajectory: 0
+        goal: 0.0
