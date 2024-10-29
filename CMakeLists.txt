@@ -35,7 +35,6 @@ set(CONTROLLER_INCLUDE_DEPENDS
 find_package(controller_manager REQUIRED)
 find_package(backward_ros REQUIRED)
 find_package(ament_cmake REQUIRED)
-find_package(joint_limits REQUIRED)
 
 foreach(Dependency IN ITEMS ${HW_IF_INCLUDE_DEPENDS})
   find_package(${Dependency} REQUIRED)
