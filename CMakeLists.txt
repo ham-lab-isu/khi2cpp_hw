@@ -17,7 +17,6 @@ set(HW_IF_INCLUDE_DEPENDS
   rosidl_default_generators
   std_msgs
   geometry_msgs
-  joint_limits
 )
 set(REF_GEN_INCLUDE_DEPENDS
   kdl_parser
