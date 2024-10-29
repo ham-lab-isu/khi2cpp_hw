@@ -36,6 +36,8 @@
 #include "realtime_tools/realtime_buffer.h"
 #include "trajectory_msgs/msg/joint_trajectory.hpp"
 #include "trajectory_msgs/msg/joint_trajectory_point.hpp"
+#include "sensor_msgs/msg/joint_state.hpp"
+
 
 namespace khi2cpp_hw
 {
@@ -88,8 +90,11 @@ protected:
   std::vector<std::string> state_interface_types_;
 
   rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>::SharedPtr joint_command_subscriber_;
+  rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_state_publisher_;
   realtime_tools::RealtimeBuffer<std::shared_ptr<trajectory_msgs::msg::JointTrajectory>>
     traj_msg_external_point_ptr_;
+  realtime_tools::RealtimeBuffer<std::shared_ptr<sensor_msgs::msg::JointState>>
+    posn_msg_external_point_ptr_;
   bool new_msg_ = false;
   rclcpp::Time start_time_;
   std::shared_ptr<trajectory_msgs::msg::JointTrajectory> trajectory_msg_;

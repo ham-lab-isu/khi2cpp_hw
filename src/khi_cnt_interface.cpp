@@ -109,16 +109,23 @@ namespace khi2cpp_hw
     // it sets up realtime buffers, ROS publishers and subscribers
     controller_interface::CallbackReturn KhiController::on_configure(const rclcpp_lifecycle::State &)
     {
-        auto callback =
+        auto command_callback =
             [this](const std::shared_ptr<trajectory_msgs::msg::JointTrajectory> traj_msg) -> void
         {
             traj_msg_external_point_ptr_.writeFromNonRT(traj_msg);
             new_msg_ = true;
         };
 
+        // create the joint_state_subscriber within the controller; this follows whatever JointTrajectory
+        // msgs are published to this topic
         joint_command_subscriber_ =
             get_node()->create_subscription<trajectory_msgs::msg::JointTrajectory>(
-            "~/joint_trajectory", rclcpp::SystemDefaultsQoS(), callback);
+            "~/joint_trajectory", rclcpp::SystemDefaultsQoS(), command_callback);
+
+        // create the joint_state publisher within the controller
+        joint_state_publisher_ =
+            get_node()->create_publisher<sensor_msgs::msg::JointState>(
+            "~/joint_states", rclcpp::SystemDefaultsQoS());
 
         return CallbackReturn::SUCCESS;
     }
@@ -192,6 +199,20 @@ namespace khi2cpp_hw
     controller_interface::return_type KhiController::update(
         const rclcpp::Time & time, const rclcpp::Duration & /*period*/)
     {
+        // State Assignments
+        sensor_msgs::msg::JointState joint_state_msg;
+        joint_state_msg.header.stamp = time;
+
+        for (size_t i = 0; i < joint_position_state_interface_.size(); i++) {
+            // for each pos+vel state interface, pull the value from the loaned hw interface and assign
+            // into the joint_state_msg to be published to /joint_states
+            joint_state_msg.name.push_back(joint_names_[i]);
+            joint_state_msg.position.push_back(joint_position_state_interface_[i].get().get_value());
+            joint_state_msg.velocity.push_back(joint_velocity_state_interface_[i].get().get_value());
+        }
+        joint_state_publisher_->publish(joint_state_msg);
+
+        // Trajectory assignments
         if (new_msg_)
         {
             trajectory_msg_ = *traj_msg_external_point_ptr_.readFromRT();
