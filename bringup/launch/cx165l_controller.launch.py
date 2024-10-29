@@ -87,16 +87,6 @@ def generate_launch_description():
         condition=IfCondition(gui),
     )
 
-    #joint_state_broadcaster_spawner = Node(
-    #    package="controller_manager",
-    #    executable="spawner",
-    #    arguments=["joint_states", "--controller-manager", "/controller_manager"],
-    #    namespace="cx165l_controller",
-    #    remappings=[
-    #        ("~/joint_states", "/cx165l_controller/joint_states"),
-    #    ],
-    #)
-
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",

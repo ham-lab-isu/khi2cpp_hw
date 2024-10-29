@@ -58,6 +58,7 @@ def generate_launch_description():
         package="joint_state_publisher_gui",
         executable="joint_state_publisher_gui",
         condition=IfCondition(gui),
+        namespace="cx165l_controller",
     )
 
     robot_state_publisher_node = Node(
@@ -65,6 +66,7 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
+        namespace="cx165l_controller",
     )
     rviz_node = Node(
         package="rviz2",
