@@ -118,15 +118,15 @@ message("Found KRNX2 library at: ${krnx2_LIBRARIES}")
 
 #message("Installed the KRNX library: ${krnx_LIBRARIES}")
 
-target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
-target_include_directories(${PROJECT_NAME} PUBLIC
+target_compile_features(khi2cpp_hw PUBLIC cxx_std_17)
+target_include_directories(khi2cpp_hw PUBLIC
 $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
 $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
 
 # these handle connecting the libraries and executables to library objects (.so files, for example)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${krnx_LIBRARIES} ${krnx2_LIBRARIES})
-target_link_libraries(main PUBLIC ${PROJECT_NAME})
+target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES} ${krnx2_LIBRARIES})
+target_link_libraries(main PUBLIC khi2cpp_hw)
 
 
 # Export hardware plugins
@@ -157,7 +157,7 @@ install(FILES ${krnx_LIBRARIES} ${krnx2_LIBRARIES}
 
 
 # Install the khi2cpp_hw library
-install(TARGETS main ${PROJECT_NAME}
+install(TARGETS main khi2cpp_hw
   EXPORT export_khi2cpp_hw
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

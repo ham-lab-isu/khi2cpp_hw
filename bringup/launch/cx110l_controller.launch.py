@@ -65,7 +65,7 @@ def generate_launch_description():
         executable="ros2_control_node",
         parameters=[robot_controllers],
         remappings=[
-            ("~/robot_description", "/cx110l_controller/robot_description"),
+            ("~/robot_description", "/robot_description"),
         ],
         output="both"
     )
@@ -74,7 +74,6 @@ def generate_launch_description():
         executable="robot_state_publisher",
         output="both",
         parameters=[robot_description],
-        namespace="cx110l_controller",
     )
 
     gui = LaunchConfiguration("gui")

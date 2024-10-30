@@ -39,9 +39,6 @@
 #include "trajectory_msgs/msg/joint_trajectory_point.hpp"
 #include "sensor_msgs/msg/joint_state.hpp"
 
-using FollowJointTrajectory = control_msgs::action::FollowJointTrajectory;
-using GoalHandleFollowJointTrajectory = rclcpp_action::ServerGoalHandle<FollowJointTrajectory>;
-
 namespace khi2cpp_hw
 {
 class KhiController : public controller_interface::ControllerInterface
@@ -94,7 +91,6 @@ protected:
 
   rclcpp::Subscription<trajectory_msgs::msg::JointTrajectory>::SharedPtr joint_command_subscriber_;
   rclcpp::Publisher<sensor_msgs::msg::JointState>::SharedPtr joint_state_publisher_;
-  rclcpp_action::Server<control_msgs::action::FollowJointTrajectory>::SharedPtr action_server_;
   realtime_tools::RealtimeBuffer<std::shared_ptr<trajectory_msgs::msg::JointTrajectory>>
     traj_msg_external_point_ptr_;
   realtime_tools::RealtimeBuffer<std::shared_ptr<sensor_msgs::msg::JointState>>
@@ -125,13 +121,6 @@ protected:
       {"position", &joint_position_state_interface_},
       {"velocity", &joint_velocity_state_interface_}};
 
-  rclcpp_action::GoalResponse handle_goal(
-    const rclcpp_action::GoalUUID &uuid,
-    std::shared_ptr<const FollowJointTrajectory::Goal> goal);
-  rclcpp_action::CancelResponse handle_cancel(
-    const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle);
-  void handle_accepted(const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle);
-  void execute(const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle);
 };
 
 }  // namespace khi2cpp_hw

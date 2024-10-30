@@ -123,17 +123,9 @@ namespace khi2cpp_hw
             "~/joint_trajectory", rclcpp::SystemDefaultsQoS(), command_callback);
 
         // create the joint_state publisher within the controller
-        joint_state_publisher_ =
-            get_node()->create_publisher<sensor_msgs::msg::JointState>(
-            "~/joint_states", rclcpp::SystemDefaultsQoS());
-
-        // create the FollowJointTrajectory action server within the controller
-        action_server_ = rclcpp_action::create_server<FollowJointTrajectory>(
-            get_node(),
-            "~/follow_joint_trajectory",
-            std::bind(&KhiController::handle_goal, this, std::placeholders::_1, std::placeholders::_2),
-            std::bind(&KhiController::handle_cancel, this, std::placeholders::_1),
-            std::bind(&KhiController::handle_accepted, this, std::placeholders::_1));
+        //joint_state_publisher_ =
+        //    get_node()->create_publisher<sensor_msgs::msg::JointState>(
+        //    "~/joint_states", rclcpp::SystemDefaultsQoS());
 
         return CallbackReturn::SUCCESS;
     }
@@ -218,7 +210,7 @@ namespace khi2cpp_hw
             joint_state_msg.position.push_back(joint_position_state_interface_[i].get().get_value());
             joint_state_msg.velocity.push_back(joint_velocity_state_interface_[i].get().get_value());
         }
-        joint_state_publisher_->publish(joint_state_msg);
+        //joint_state_publisher_->publish(joint_state_msg);
 
         // Trajectory assignments
         if (new_msg_)
@@ -245,51 +237,6 @@ namespace khi2cpp_hw
         return controller_interface::return_type::OK;
     }
     // --------------------------------------------------------------------------------------------
-
-    // --------------------------------------------------------------------------------------------
-    // called when a goal is sent to the action server
-    rclcpp_action::GoalResponse KhiController::handle_goal(
-        const rclcpp_action::GoalUUID & /*uuid*/,
-        std::shared_ptr<const FollowJointTrajectory::Goal> goal)
-    {
-        RCLCPP_INFO(rclcpp::get_logger("KhiController"), "KhiActionServer -- Received a new goal.");
-
-        for (const auto &joint_name : goal->trajectory.joint_names)
-        {
-            if (std::find(joint_names_.begin(), joint_names_.end(), joint_name) == joint_names_.end())
-            {
-                RCLCPP_ERROR(rclcpp::get_logger("KhiController"), "Joint '%s' in goal is not part of this controller.", joint_name.c_str());
-                return rclcpp_action::GoalResponse::REJECT;
-            }
-        }
-        return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
-    }
-    // --------------------------------------------------------------------------------------------
-
-    // --------------------------------------------------------------------------------------------
-    rclcpp_action::CancelResponse KhiController::handle_cancel(
-        const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle)
-    {
-        RCLCPP_INFO(rclcpp::get_logger("KhiController"), "Received request to cancel goal.");
-        std::shared_ptr<control_msgs::action::FollowJointTrajectory_Result> result_msg;
-        goal_handle->canceled(result_msg);
-        return rclcpp_action::CancelResponse::ACCEPT;
-    }
-    // --------------------------------------------------------------------------------------------
-
-    // --------------------------------------------------------------------------------------------
-    // called when a goal is accepted
-    void KhiController::handle_accepted(const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle)
-    {
-        using namespace std::placeholders;
-        std::thread{std::bind(&KhiController::execute, this, _1), goal_handle}.detach();
-    }
-
-    void KhiController::execute(const std::shared_ptr<GoalHandleFollowJointTrajectory> goal_handle)
-    {
-        RCLCPP_INFO(rclcpp::get_logger("KhiController"), "Executing goal");
-        // insert goal execution code
-    }
 
     // --------------------------------------------------------------------------------------------
     // This method is used when a controller stops running.
