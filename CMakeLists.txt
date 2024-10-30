@@ -72,13 +72,13 @@ ament_target_dependencies(main PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCL
 
 # add a library, target the dependencies
 add_library(
-  khi2cpp_hw
+  ${PROJECT_NAME}
   SHARED
   src/khi_hw_interface.cpp
   src/khi_cnt_interface.cpp
   src/khi_krnx_driver.cpp
 )
-ament_target_dependencies(khi2cpp_hw PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
+ament_target_dependencies(${PROJECT_NAME} PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
 
 
 ## KRNX
@@ -118,15 +118,15 @@ message("Found KRNX2 library at: ${krnx2_LIBRARIES}")
 
 #message("Installed the KRNX library: ${krnx_LIBRARIES}")
 
-target_compile_features(khi2cpp_hw PUBLIC cxx_std_17)
-target_include_directories(khi2cpp_hw PUBLIC
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
+target_include_directories(${PROJECT_NAME} PUBLIC
 $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
-$<INSTALL_INTERFACE:include/khi2cpp_hw>
+$<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
 
 # these handle connecting the libraries and executables to library objects (.so files, for example)
-target_link_libraries(khi2cpp_hw PUBLIC ${krnx_LIBRARIES} ${krnx2_LIBRARIES})
-target_link_libraries(main PUBLIC khi2cpp_hw)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${krnx_LIBRARIES} ${krnx2_LIBRARIES})
+target_link_libraries(main PUBLIC ${PROJECT_NAME})
 
 
 # Export hardware plugins
@@ -137,19 +137,19 @@ pluginlib_export_plugin_description_file(controller_interface khi2cpp_hw.xml)
 # INSTALL
 install(
   DIRECTORY src/include/
-  DESTINATION include/khi2cpp_hw
+  DESTINATION include/${PROJECT_NAME}
 )
 install(
   DIRECTORY description/launch description/ros2_control description/urdf
-  DESTINATION share/khi2cpp_hw
+  DESTINATION share/${PROJECT_NAME}
 )
 install(
   DIRECTORY bringup/launch bringup/config
-  DESTINATION share/khi2cpp_hw
+  DESTINATION share/${PROJECT_NAME}
 )
 install(
     TARGETS main
-    RUNTIME DESTINATION lib/khi2cpp_hw
+    RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
 install(FILES ${krnx_LIBRARIES} ${krnx2_LIBRARIES}
   DESTINATION lib
@@ -157,7 +157,7 @@ install(FILES ${krnx_LIBRARIES} ${krnx2_LIBRARIES}
 
 
 # Install the khi2cpp_hw library
-install(TARGETS main khi2cpp_hw
+install(TARGETS main ${PROJECT_NAME}
   EXPORT export_khi2cpp_hw
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib

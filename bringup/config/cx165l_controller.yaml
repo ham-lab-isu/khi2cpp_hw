@@ -4,6 +4,9 @@ controller_manager:
     
     cx165l_controller:
       type: khi2cpp_hw/KhiController
+    
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
 
 cx165l_controller:
   ros__parameters:
