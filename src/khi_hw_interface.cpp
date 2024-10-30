@@ -48,7 +48,7 @@ namespace khi2cpp_hw
         data_.arm_num = 1;
         data_.arm[0].jt_num = 6;
 
-        bool in_sim = true;
+        in_sim_ = true;
 
         // assign robot-specific data -> can this data not be grabbed from the URDF? What's our info argument?
         // robot has 6 joints and 2 interfaces
@@ -66,7 +66,7 @@ namespace khi2cpp_hw
         driver_ = new khi_robot_control::KhiRobotKrnxDriver();
 
         // Call the intialize member function of driver_
-        if( ! driver_->initialize(cont_no_, 4, data_, in_sim )) { 
+        if( ! driver_->initialize(cont_no_, 4, data_, in_sim_ )) { 
             KhiSystem::close(cont_no_);
             return CallbackReturn::ERROR;}
 

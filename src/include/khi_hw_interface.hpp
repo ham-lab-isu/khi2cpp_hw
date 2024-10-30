@@ -62,6 +62,7 @@ protected:
   std::vector<double> ft_command_;
 
   int cont_no_ = 0;
+  bool in_sim_;
 
   std::unordered_map<std::string, std::vector<std::string>> joint_interfaces = {
     {"position", {}}, {"velocity", {}}};
