@@ -5,10 +5,10 @@ controller_manager:
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    joint_trajectory_controller:
+    cx165l_controller:
       type: joint_trajectory_controller/JointTrajectoryController
     
-joint_trajectory_controller:
+cx165l_controller:
   ros__parameters:
     joints:
       - joint_1
