@@ -714,8 +714,8 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
             p_rtc_data->comp[ano][jt] = (float)((data.arm[ano].cmd[jt] - data.arm[ano].home[jt]));
 
             // adding some comp limits just to get it to run
-            if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
-            if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
+            //if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
+            //if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
             //
 
             RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);

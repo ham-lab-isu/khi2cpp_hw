@@ -1,60 +1,14 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50  # Hz
+    update_rate: 50 #Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
 
-    joint_trajectory_controller:
+    cx110l_controller:
       type: joint_trajectory_controller/JointTrajectoryController
 
-    cx110l_controller:
-      type: khi2cpp_hw/KhiController
-
 cx110l_controller:
-  ros__parameters:
-    joints:
-      - joint_1
-      - joint_2
-      - joint_3
-      - joint_4
-      - joint_5
-      - joint_6
-
-    command_interfaces:
-      - position
-      - velocity
-
-    state_interfaces:
-      - position
-      - velocity
-
-    action_monitor_rate: 20.0
-    state_publish_rate: 50.0
-
-    constraints:
-      stopped_velocity_tolerance: 0.1
-      goal_time: 2.0
-      joint_1:
-        trajectory: 0
-        goal: 0.0
-      joint_2:
-        trajectory: 0
-        goal: 0.0
-      joint_3:
-        trajectory: 0
-        goal: 0.0
-      joint_4:
-        trajectory: 0
-        goal: 0.0
-      joint_5:
-        trajectory: 0
-        goal: 0.0
-      joint_6:
-        trajectory: 0
-        goal: 0.0
-
-joint_trajectory_controller:
   ros__parameters:
     joints:
       - joint_1

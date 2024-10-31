@@ -39,8 +39,8 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("khi2cpp_hw"),
-                    "urdf",
+                    FindPackageShare("khi2cpp_hw_description"),
+                    "cx165l/urdf",
                     "cx165l.urdf.xacro",
                 ]
             ),
