@@ -190,7 +190,7 @@ namespace khi2cpp_hw
 
         // pull the pos/vel data from data_ and assign to the joint_velocities_ and joint_position_ vectors (double)
 
-        //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %f, %f, %f, %f, %f, %f",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %f, %f, %f, %f, %f, %f",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
 
         //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
 
