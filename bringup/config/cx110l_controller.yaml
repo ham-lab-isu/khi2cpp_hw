@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 50 #Hz
+    update_rate: 500 #Hz
 
     joint_state_broadcaster:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -26,7 +26,7 @@ cx110l_controller:
       - position
       - velocity
 
-    action_monitor_rate: 20.0
+    action_monitor_rate: 50.0
 
     allow_partial_joints_goal: false
     open_loop_control: true
