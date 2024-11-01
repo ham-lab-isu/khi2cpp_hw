@@ -720,9 +720,9 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
             //if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
             //if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
             //
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f", ano, jt, data.arm[ano].cmd[jt]);
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX     comp[%d][%d] = %f", ano, jt, p_rtc_data->comp[ano][jt]);
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX old_comp[%d][0 ] = %f", ano, p_rtc_data->old_comp[ano][jt]);
+            RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f", ano, jt, data.arm[ano].cmd[jt]);
+            RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX     comp[%d][%d] = %f", ano, jt, p_rtc_data->comp[ano][jt]);
+            RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX old_comp[%d][0 ] = %f", ano, p_rtc_data->old_comp[ano][jt]);
 
         }
     }
