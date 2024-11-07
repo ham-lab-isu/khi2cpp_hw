@@ -1,0 +1,12 @@
+<launch>
+
+    <!-- Control Node -->
+    <node pkg="controller_manager" exec="ros2_control_node" output="both">
+        <remap from="~/robot_description" to="/robot_description" />
+        <param name="robot_controllers" textfile="$(find khi2cpp_hw)/config/cx165l_controller.yaml" />
+    </node>
+
+    <!-- Robot Controller Spawner -->
+    <node pkg="controller_manager" exec="spawner" args="cx165l_controller -c /controller_manager" />
+
+</launch>
