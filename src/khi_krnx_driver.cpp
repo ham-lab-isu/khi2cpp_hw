@@ -5,7 +5,6 @@ KHI_KRNX_DRIVER source file defines the methods for communicating with KRNX.h, t
 
 */
 
-#include "rclcpp/rclcpp.hpp"
 #include "geometry_msgs/msg/pose.hpp"
 #include "khi_krnx_driver.h"
 
@@ -78,6 +77,7 @@ bool KhiRobotKrnxDriver::retKrnxRes( const int& cont_no, const std::string& name
 {
     if ( ret != KRNX_NOERROR )
     {
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR: %s returned -0x%X -------------", name.c_str(), -ret);
         errorPrint( "%s returned -0x%X", name.c_str(), -ret );
         if ( error ) { setState( cont_no, ERROR ); }
         return false;
@@ -145,12 +145,14 @@ bool KhiRobotKrnxDriver::initialize( const int& cont_no, const double& period, K
     char msg[256] = { 0 };
 
     // robot info
-    cont_info[cont_no].period = period;
+    //cont_info[cont_no].period = period; JDH
+    cont_info[cont_no].period = 4;
+
 
     return_code = krnx_GetKrnxVersion( msg, sizeof(msg) );
     infoPrint( msg );
 
-    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER IS INITIALIZED -------------");
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER IS INITIALIZED, PERIOD IS %d -------------", cont_info[cont_no].period);
 
 
     this->in_simulation = in_simulation;
@@ -184,11 +186,21 @@ bool KhiRobotKrnxDriver::open( const int& cont_no, const std::string& ip_address
     setState( cont_no, CONNECTING );
     strncpy( c_ip_address, ip_address.c_str(), sizeof(c_ip_address) );
     infoPrint( "Connecting to real controller: %s", c_ip_address );
+
+    // OPEN THE KRNX API
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER OPENING CONTROLLER %d AT %s ------------", cont_no, c_ip_address);
     return_code = krnx_Open( cont_no, c_ip_address );
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER HAS BEEN OPENED, RETURN_CODE %d ------------", return_code);
+    
+    // added for debugging
+    //return_code = cont_no;
+
     if ( return_code == cont_no )
     {
         cont_info[cont_no].ip_address = ip_address;
-        if ( !loadDriverParam( cont_no, data ) ) { return false; };
+        if ( !loadDriverParam( cont_no, data ) ) { 
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- FAILED TO LOAD KRNX DRIVER PARAMS ------------");
+            return false; };
 
         setState( cont_no, INACTIVE );
         RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER SUCCESSFULLY OPENED REAL ROBOT -------------");
@@ -319,7 +331,7 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
         }
     }
 
-    /* Sync RTC Position */
+    /* Sync RTC Position */ // THIS IS WHAT ESTABLISHES DATA.ARM[ANO].HOME[JT]
     if ( !syncRtcPos( cont_no, data ) )
     {
         errorPrint( "Failed to sync position" );
@@ -355,18 +367,28 @@ bool KhiRobotKrnxDriver::activate( const int& cont_no, KhiRobotData& data )
             if ( ( return_code != KRNX_NOERROR ) || ( rtc_data[cont_no].sw == 0 ) ) { continue; }
 
             return_code = krnx_GetCurMotionData( cont_no, ano, &motion_data );
-            if ( return_code != KRNX_NOERROR ) { continue; }
+            if ( return_code != KRNX_NOERROR ) { 
+                RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DRIVER GETCURMOTION ERROR (Breakpoint 4.5) -------------");
+                continue; }
 
             is_ready = true;
             for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
             {
+                data.arm[ano].cmd[jt] = data.arm[ano].pos[jt] = data.arm[ano].home[jt]; // JDH 2024-10-22
                 diff = data.arm[ano].home[jt]*conv - motion_data.ang[jt];
                 if ( fabs(diff) > KHI_KRNX_ACTIVATE_TH )
                 {
+                    RCLCPP_WARN(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT POSITION DIFFERENCE OVER THRESHOLD VALUE (Breakpoint 4.6) ------------");
                     is_ready = false;
                     break;
                 }
             }
+
+            // JDH 2024-10-23 debugging rtc comp data errors 
+            float comp_limit;
+            return_code = krnx_GetRtcCompLimit(cont_no, ano, &comp_limit);
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX Arm[%d] RTC Comp Limit: %f -------------", ano, comp_limit);
+            // end JDH
 
             if ( is_ready )
             {
@@ -446,6 +468,7 @@ bool KhiRobotKrnxDriver::deactivate( const int& cont_no, const KhiRobotData& dat
 
 bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data )
 {
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PARAM LOAD ------------");
     char robot_name[64] = { 0 };
     char msg[256] = { 0 };
     TKrnxPanelInfo panel_info;
@@ -462,12 +485,16 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
     for ( int ano = 0; ano < arm_num; ano++ )
     {
         /* Robot Name */
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PARAM LOAD: ano %d; cont_no %d; robot_name %s ------------", ano, cont_no, robot_name);
         return_code = krnx_GetRobotName( cont_no, ano, robot_name );
+        
         if ( strncmp( robot_name, data.robot_name.c_str(), 6 ) != 0 )
         {
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT NAME ERROR %s != %s------------", data.robot_name.c_str(), robot_name);
             errorPrint( "ROS Robot:%s does not match AS:%s", data.robot_name.c_str(), robot_name );
             return false;
         }
+        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ROBOT NAME ASSIGNMENT COMPLETE ------------");
 
         /* AS Switch */
         return_code = execAsMonCmd( cont_no, "TYPE SWITCH(ZDBLREFFLT_MODSTABLE)", msg_buf, sizeof(msg_buf), &error_code );
@@ -488,13 +515,16 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
             jt_num = atoi(msg_buf);
             if ( data.arm[ano].jt_num != jt_num )
             {
-                warnPrint( "ROS JT:%d does not match AS:%d", data.arm[ano].jt_num, jt_num );
+                RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"),"ROS JT:%d does not match AS:%d", data.arm[ano].jt_num, jt_num );
             }
         }
 
         return_code = krnx_GetPanelInfo( cont_no, ano, &panel_info );
         if ( retKrnxRes( cont_no, "krnx_GetPanelInfo", return_code ) && ( panel_info.cycle_lamp != 0 ) )
         {
+            // DEBUG
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR AT panel_info.cycle_lamp ------------");
+            
             /* Hold Program */
             return_code = krnx_Hold( cont_no, ano, &error_code );
             if ( !retKrnxRes( cont_no, "krnx_Hold", return_code ) ) { return false; }
@@ -502,21 +532,25 @@ bool KhiRobotKrnxDriver::loadDriverParam( const int& cont_no, KhiRobotData& data
 
         /* KRNX */
         TKrnxRtcInfo rtcont_info;
-        rtcont_info.cyc = (int)(cont_info[cont_no].period/1e+6);
+        // JDH rtcont_info.cyc = (int)(cont_info[cont_no].period/1e+6);
+        rtcont_info.cyc = (int)(2);
         rtcont_info.buf = KHI_KRNX_BUFFER_SIZE;
         rtcont_info.interpolation = 1;
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX rtcont_info: cyc %d, buf %d, int %d ------------", rtcont_info.cyc, rtcont_info.buf, rtcont_info.interpolation);
         return_code = krnx_SetRtcInfo( cont_no, &rtcont_info );
         retKrnxRes( cont_no, "krnx_SetRtcInfo", return_code );
         krnx_SetRtcCompMask( cont_no, ano, pow( 2, data.arm[ano].jt_num ) - 1 );
 
         /* Kill Program */
         return_code = krnx_Kill( cont_no, ano, &error_code );
-        if ( !retKrnxRes( cont_no, "krnx_Kill", return_code ) ) { return false; }
+        if ( !retKrnxRes( cont_no, "krnx_Kill", return_code ) ) { 
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ERROR: KRNX CONTROLLER KILLING PROGRAM ------------");
+            return false; }
 
         /* Load Program */
         if ( !loadRtcProg( cont_no, data.robot_name.c_str() ) )
         {
-            errorPrint( "Failed to load RTC program");
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "Failed to load RTC program");
             return false;
         }
     }
@@ -561,7 +595,9 @@ bool KhiRobotKrnxDriver::readData( const int& cont_no, KhiRobotData& data )
 
     for ( int ano = 0; ano < arm_num; ano++ )
     {
-        if ( !getCurMotionData( cont_no, ano, &motion_cur[ano] ) ) { return false; }
+        if ( !getCurMotionData( cont_no, ano, &motion_cur[ano] ) ) {
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX DID NOT READ CURRENT MOTION DATA ------------");
+            return false; }
 
         if ( motion_data[cont_no][ano].size() >= KRNX_MOTION_BUF )
         {
@@ -609,10 +645,10 @@ bool KhiRobotKrnxDriver::setRobotDataHome( const int& cont_no, KhiRobotData& dat
 
     if ( data.robot_name == "null robot" )
     {
-        data.arm[0].home[0] = -45.0f*M_PI/180;
-        data.arm[0].home[1] = 45.0f*M_PI/180;
-        data.arm[1].home[0] = 45.0f*M_PI/180;
-        data.arm[1].home[1] = -45.0f*M_PI/180;
+        data.arm[0].home[0] = -45.0f*M_PI/180.0;
+        data.arm[0].home[1] = 45.0f*M_PI/180.0;
+        data.arm[1].home[0] = 45.0f*M_PI/180.0;
+        data.arm[1].home[1] = -45.0f*M_PI/180.0;
         data.arm[0].home[2] = data.arm[1].home[2] = 90.0f/KHI_KRNX_M2MM;
         data.arm[0].home[3] = data.arm[1].home[3] = 0.0f;
     }
@@ -664,7 +700,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         {
             jointPrint( std::string("write"), data );
         }
-        RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
+        //RCLCPP_DEBUG(rclcpp::get_logger("KRNX Driver"), "----------- KRNX RTC: %f -------------", data.arm[0].pos[0]);
         sim_cnt[cont_no]++;
         return true;
     }
@@ -675,13 +711,22 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
         for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
         {
             // JDH this appears to be the critical line - using the pointer p_rtc_data to assign new Krnx data from the object KhiRobotData(KhiRobotArmData)
-            p_rtc_data->comp[ano][jt] = (float)(data.arm[ano].cmd[jt] - data.arm[ano].home[jt]);
+            p_rtc_data->comp[ano][jt] = (float)((data.arm[ano].cmd[jt] - data.arm[ano].home[jt]));
+
+            // adding some comp limits just to get it to run
+            //if (p_rtc_data->comp[ano][jt] > 0.004) {p_rtc_data->comp[ano][jt] = 0.004;};
+            //if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
+            //
+
+            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
         }
     }
 
     for ( int ano = 0; ano < arm_num; ano++ )
     {
+        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         return_code = krnx_PrimeRtcCompData( cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
+        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
         if ( !retKrnxRes( cont_no, "krnx_PrimeRtcCompData", return_code ) ) { is_primed = false; }
     }
     if ( !is_primed )
@@ -700,7 +745,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
                 snprintf( status, sizeof(status), "[%d]%.4f:%.4f:%d ", jt+1, jt_pos, jt_vel, p_rtc_data->status[ano][jt] );
                 strcat( msg, status );
                 RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt], data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt],p_rtc_data->old_comp[ano][jt], p_rtc_data->comp[ano][jt], data.arm[ano].home[jt], motion_data.ang_ref[jt]);
-                RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt]*180/M_PI, (data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt])*180/M_PI, p_rtc_data->old_comp[ano][jt]*180/M_PI, p_rtc_data->comp[ano][jt]*180/M_PI, data.arm[ano].home[jt]*180/M_PI, motion_data.ang_ref[jt]*180/M_PI);
+                //RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt]*180.0/M_PI, (data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt])*180.0/M_PI, p_rtc_data->old_comp[ano][jt]*180.0/M_PI, p_rtc_data->comp[ano][jt]*180.0/M_PI, data.arm[ano].home[jt]*180.0/M_PI, motion_data.ang_ref[jt]*180.0/M_PI);
             }
             errorPrint( msg );
         }
@@ -708,7 +753,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
     }
 
     // JDH Is this what sends the RTC movement data to the hardware (i.e. controller)? YES, see KRNX API manual p77
-    infoPrint("JDH SENDING RTC COMP DATA");
+    //infoPrint("JDH SENDING RTC COMP DATA");
     return_code = krnx_SendRtcCompData( cont_no, p_rtc_data->seq_no );
     p_rtc_data->seq_no++;
 
@@ -900,9 +945,10 @@ bool KhiRobotKrnxDriver::syncRtcPos( const int& cont_no, KhiRobotData& data )
         for ( int jt = 0; jt < data.arm[ano].jt_num; jt++ )
         {
             data.arm[ano].home[jt] = (double)motion_data.ang[jt];
+            //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX HOME ASSIGNMENT for JT=%d is %f", jt, data.arm[ano].home[jt]);
         }
     }
-
+    RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ASSIGNED MOTION DATA TO KhiRobotData OBJECT HOME --------------");
     return true;
 }
 

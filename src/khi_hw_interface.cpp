@@ -45,10 +45,10 @@ namespace khi2cpp_hw
 
 
         data_.robot_name = info_.name;
-        data_.arm_num = 0;
-        data_.arm[0].jt_num = 0;
+        data_.arm_num = 1;
+        data_.arm[0].jt_num = 6;
 
-        bool in_sim = true;
+        in_sim_ = true;
 
         // assign robot-specific data -> can this data not be grabbed from the URDF? What's our info argument?
         // robot has 6 joints and 2 interfaces
@@ -61,7 +61,35 @@ namespace khi2cpp_hw
         ft_states_.assign(6, 0);
         ft_command_.assign(6, 0);
 
+
+        // Allocate space for the Krnx driver in memory; driver_ is just a pointer to the actual driver
+        driver_ = new khi_robot_control::KhiRobotKrnxDriver();
+
+        // Call the intialize member function of driver_
+        if( ! driver_->initialize(cont_no_, 4, data_, in_sim_ )) { 
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
+
+        // Call the "open" member function of driver_
+        std::string ip_address_cat = std::to_string(ip_address_0) + "." + std::to_string(ip_address_1) +"."+ std::to_string(ip_address_2)+"."+ std::to_string(ip_address_3);
+        if ( ! driver_->open(cont_no_, ip_address_cat, data_ )) {
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
+
+        // Call the driver activation member function
+        if ( ! driver_->activate(cont_no_, data_)) {
+            KhiSystem::close(cont_no_);
+            return CallbackReturn::ERROR;}
+
+        // Export the real robot's current position
+        //driver_->readData(cont_no_, data_);
+        //export_state_interfaces();
+
+
         int jt = 0;
+        ///////////////////////////////
+        // Does moving this recursion after the driver initialization fix the PrimtRtcData issue?
+        ///////////////////////////////
         for (const auto & joint : info_.joints)
         {
             // Assign HardwareInfo members to the KhiRobotData object
@@ -69,8 +97,9 @@ namespace khi2cpp_hw
             data_.arm[0].type[jt] = 0;
 
             // Retrieve KhiRobotArm data position and velocity; assign as members in the KhiSystem
-            joint_position_[jt] = data_.arm[0].pos[jt];
-            joint_velocities_[jt] = data_.arm[0].vel[jt];
+            joint_position_[jt] = joint_position_command_[jt] = data_.arm[0].pos[jt];
+            joint_velocities_[jt] = joint_velocities_command_[jt] = data_.arm[0].vel[jt];
+            RCLCPP_INFO(rclcpp::get_logger("KhiSystem"), "----------- ASSIGNED JT%d initial position as %f", jt+1, joint_position_command_[jt]);
 
             // loop through the joint (ComponentInfo) objects in the info_ member of KhiSystem (Hardware Interface) object
             for (const auto & interface : joint.state_interfaces)
@@ -81,25 +110,6 @@ namespace khi2cpp_hw
             }
             jt++;
         }
-
-        // Allocate memory for the Krnx driver in memory; driver_ is just a pointer to the actual driver
-        driver_ = new khi_robot_control::KhiRobotKrnxDriver();
-
-        // Call the intialize member function of driver_
-        if( ! driver_->initialize(cont_no_, 4, data_, in_sim )) { 
-            KhiSystem::close(cont_no_);
-            return CallbackReturn::ERROR;}
-
-        // Call the "open" member function of driver_
-        std::string ip_address_cat = std::to_string(ip_address_0) + std::to_string(ip_address_1) + std::to_string(ip_address_2) + std::to_string(ip_address_3);
-        if ( ! driver_->open(cont_no_, ip_address_cat, data_ )) {
-            KhiSystem::close(cont_no_);
-            return CallbackReturn::ERROR;}
-
-        // Call the driver activation member function
-        if ( ! driver_->activate(cont_no_, data_)) {
-            KhiSystem::close(cont_no_);
-            return CallbackReturn::ERROR;}
 
         // returns success if ... it was a success
         RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "+++++++++++++ KHI-ROS Hardware Initialization SUCCESS ++++++++++++++");
@@ -152,7 +162,7 @@ namespace khi2cpp_hw
             command_interfaces.emplace_back(joint_name, "velocity", &joint_velocities_command_[ind++]);
         }
 
-            // append any sensor data to the command_interfaces vector
+        // append any sensor data to the command_interfaces vector
         //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
         
         return command_interfaces;
@@ -180,9 +190,9 @@ namespace khi2cpp_hw
 
         // pull the pos/vel data from data_ and assign to the joint_velocities_ and joint_position_ vectors (double)
 
-        RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %d, %d, %d, %d, %d, %d",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %f, %f, %f, %f, %f, %f",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
 
-        RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
+        //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
 
         return return_type::OK;
     }
@@ -198,11 +208,12 @@ namespace khi2cpp_hw
         // assign values from cmd into data_ member; data.arm[arm_num].cmd[joint_num]
         for (auto i = 0ul; i < joint_position_.size(); i++)
         {
-            data_.arm[0].pos[i] = cmd[i].get_value();
+            data_.arm[0].cmd[i] = cmd[i].get_value();
+            //RCLCPP_INFO(rclcpp::get_logger("KhiSystem Write Function"), "--------------- KhiSystem writing to jt[%d]: %f --------------", i, cmd[i].get_value());
         }
 
         driver_->writeData(cont_no_, data_);
-        RCLCPP_DEBUG(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
+        //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
 
         //client->write(data_);
         return return_type::OK;
