@@ -3,7 +3,7 @@ Engineers pretending to be software devs
 
 Humble Driver for Khi CX-series robots equipped with KRNX API for programmatic control.
 
-Jakob Hamilton, Iowa State University, 2024
+Jakob Hamilton, Walter Glockner, Randev Goonesekere, Iowa State University, 2024
 
 Requires installation of
 - colcon: ```sudo apt install python3-colcon-common-extensions```
