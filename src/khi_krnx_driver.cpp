@@ -718,7 +718,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
             //if (p_rtc_data->comp[ano][jt] < -0.004) {p_rtc_data->comp[ano][jt] = -0.004;};
             //
 
-            RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
+            //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX data.arm[%d].cmd[%d] = %f, comp[%d][%d] = %f -------------", ano, jt, data.arm[ano].cmd[jt], ano, jt, p_rtc_data->comp[ano][jt]);
         }
     }
 
@@ -726,7 +726,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
     {
         //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Args: %d, %d, %p, %p", cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
         return_code = krnx_PrimeRtcCompData( cont_no, ano, &p_rtc_data->comp[ano][0], &p_rtc_data->status[ano][0] );
-        RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
+        //RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX PrimeRtcCompData Status: %i --------------", status[ano]);
         if ( !retKrnxRes( cont_no, "krnx_PrimeRtcCompData", return_code ) ) { is_primed = false; }
     }
     if ( !is_primed )
@@ -744,7 +744,7 @@ bool KhiRobotKrnxDriver::writeData( const int& cont_no, const KhiRobotData& data
 
                 snprintf( status, sizeof(status), "[%d]%.4f:%.4f:%d ", jt+1, jt_pos, jt_vel, p_rtc_data->status[ano][jt] );
                 strcat( msg, status );
-                RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt], data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt],p_rtc_data->old_comp[ano][jt], p_rtc_data->comp[ano][jt], data.arm[ano].home[jt], motion_data.ang_ref[jt]);
+                //RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt], data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt],p_rtc_data->old_comp[ano][jt], p_rtc_data->comp[ano][jt], data.arm[ano].home[jt], motion_data.ang_ref[jt]);
                 //RCLCPP_WARN(rclcpp::get_logger("krnx_logger"), "JT%d:%f,%f,%f,%f,%f,%f", jt+1, data.arm[ano].cmd[jt]*180.0/M_PI, (data.arm[ano].home[jt]+p_rtc_data->comp[ano][jt])*180.0/M_PI, p_rtc_data->old_comp[ano][jt]*180.0/M_PI, p_rtc_data->comp[ano][jt]*180.0/M_PI, data.arm[ano].home[jt]*180.0/M_PI, motion_data.ang_ref[jt]*180.0/M_PI);
             }
             errorPrint( msg );

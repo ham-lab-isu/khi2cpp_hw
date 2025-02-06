@@ -28,7 +28,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "gui",
-            default_value="true",
+            default_value="false",
             description="Start RViz2 automatically with this launch file.",
         )
     )
@@ -39,9 +39,8 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("khi2cpp_hw_description"),
-                    "cx165l/urdf",
-                    "cx165l.urdf.xacro",
+                    FindPackageShare("snp_isu_support"),
+                    "urdf/workcell.xacro",
                 ]
             ),
         ]
@@ -51,8 +50,7 @@ def generate_launch_description():
     robot_controllers = PathJoinSubstitution(
         [
             FindPackageShare("khi2cpp_hw"),
-            "config",
-            "cx165l_controller.yaml",
+            "config/cx165l_controller.yaml",
         ]
     )
 
@@ -95,7 +93,7 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["cx165l_controller", "-c", "/controller_manager"],
+        arguments=["joint_trajectory_position_controller", "-c", "/controller_manager"],
     )
 
     # Delay rviz start after `joint_state_broadcaster`
