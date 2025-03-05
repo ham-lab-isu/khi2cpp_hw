@@ -210,7 +210,7 @@ namespace khi2cpp_hw
             joint_state_msg.position.push_back(joint_position_state_interface_[i].get().get_value());
             joint_state_msg.velocity.push_back(joint_velocity_state_interface_[i].get().get_value());
         }
-        //joint_state_publisher_->publish(joint_state_msg);
+        joint_state_publisher_->publish(joint_state_msg);
 
         // Trajectory assignments
         if (new_msg_)

@@ -13,25 +13,29 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import RegisterEventHandler, DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, RegisterEventHandler
 from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
-from launch.substitutions import Command, FindExecutable, PathJoinSubstitution, LaunchConfiguration
+from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-
 def generate_launch_description():
     # Declare arguments
     declared_arguments = []
+
     declared_arguments.append(
         DeclareLaunchArgument(
-            "gui",
+            "use_gui",
             default_value="true",
             description="Start RViz2 automatically with this launch file.",
         )
     )
+
+    # Initialize Arguments
+    use_gui = LaunchConfiguration("use_gui")
+
     # Get URDF via xacro
     robot_description_content = Command(
         [
@@ -40,13 +44,32 @@ def generate_launch_description():
             PathJoinSubstitution(
                 [
                     FindPackageShare("khi2cpp_hw_description"),
-                    "cx110l/urdf",
-                    "cx110l.urdf.xacro",
+                    "cx110l",
+                    "urdf",
+                    "workcell.xacro",
                 ]
             ),
         ]
     )
+
     robot_description = {"robot_description": robot_description_content}
+    
+    # Load the semantic description (SRDF) by reading its file contents
+    robot_description_semantic_content = Command(
+        [
+            PathJoinSubstitution([FindExecutable(name="cat")]),
+            " ",
+            PathJoinSubstitution(
+                [
+                    FindPackageShare("khi2cpp_hw_description"),
+                    "cx110l",
+                    "srdf",
+                    "cx110l.srdf",
+                ]
+            ),
+        ]
+    )
+    robot_description_semantic = {"robot_description_semantic": robot_description_semantic_content}
 
     robot_controllers = PathJoinSubstitution(
         [
@@ -67,8 +90,9 @@ def generate_launch_description():
         remappings=[
             ("~/robot_description", "/robot_description"),
         ],
-        output="both"
+        output="both",
     )
+
     robot_state_pub_node = Node(
         package="robot_state_publisher",
         executable="robot_state_publisher",
@@ -76,26 +100,29 @@ def generate_launch_description():
         parameters=[robot_description],
     )
 
-    gui = LaunchConfiguration("gui")
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",
         name="rviz2",
         output="log",
         arguments=["-d", rviz_config_file],
-        condition=IfCondition(gui),
+        condition=IfCondition(use_gui),
     )
 
     joint_state_broadcaster_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_state_broadcaster", "--controller-manager", "/controller_manager"],
+        arguments=["joint_state_broadcaster"],
+        parameters=[{
+            "publish_default_joint_states": True,
+            "use_local_topics": True
+        }],
     )
 
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["cx110l_controller", "-c", "/controller_manager"],
+        arguments=["joint_trajectory_position_controller", "--param-file", robot_controllers],
     )
 
     # Delay rviz start after `joint_state_broadcaster`

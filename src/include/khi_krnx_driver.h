@@ -12,6 +12,7 @@ KHI_KRNX_DRIVER_H is the header file for KHI_KRNX_DRIVER. It initializes the met
 #include <rclcpp/rclcpp.hpp>
 #include <krnx.h>
 #include <khi_robot_driver.h>
+#include <khi_robot_msgs/srv/khi_robot_cmd.hpp>
 
 namespace khi_robot_control
 {
@@ -45,7 +46,7 @@ public:
     bool writeData( const int& cont_no, const KhiRobotData& data ) override;
     bool updateState( const int& cont_no, const KhiRobotData& data ) override;
     bool getPeriodDiff( const int& cont_no, double& diff ) override;
-    //bool commandHandler( khi_robot_msgs::srv::KhiRobotCmd::Request& req, khi_robot_msgs::srv::KhiRobotCmd::Response& res ) override;
+    bool commandHandler( khi_robot_msgs::srv::KhiRobotCmd::Request& req, khi_robot_msgs::srv::KhiRobotCmd::Response& res );
 
 private:
     /* general */

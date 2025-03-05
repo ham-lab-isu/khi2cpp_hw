@@ -17,6 +17,7 @@ set(HW_IF_INCLUDE_DEPENDS
   rosidl_default_generators
   std_msgs
   geometry_msgs
+  khi_robot_msgs
 )
 set(REF_GEN_INCLUDE_DEPENDS
   kdl_parser
@@ -32,6 +33,7 @@ set(CONTROLLER_INCLUDE_DEPENDS
 )
 
 # find dependencies
+find_package(diagnostic_msgs REQUIRED)
 find_package(controller_manager REQUIRED)
 find_package(backward_ros REQUIRED)
 find_package(ament_cmake REQUIRED)
@@ -67,7 +69,7 @@ endif()
 
 # add an executable, target the dependencies
 add_executable(main src/main.cpp src/khi_krnx_driver.cpp)
-ament_target_dependencies(main PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
+ament_target_dependencies(main PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} diagnostic_msgs)
 
 # add a library, target the dependencies
 add_library(

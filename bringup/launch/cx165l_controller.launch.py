@@ -39,8 +39,8 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("snp_isu_support"),
-                    "urdf/workcell.xacro",
+                    FindPackageShare("khi2cpp_hw_description"),
+                    "cx165l/urdf/workcell.xacro",
                 ]
             ),
         ]
@@ -93,7 +93,7 @@ def generate_launch_description():
     robot_controller_spawner = Node(
         package="controller_manager",
         executable="spawner",
-        arguments=["joint_trajectory_position_controller", "-c", "/controller_manager"],
+        arguments=["joint_trajectory_position_controller", "-c", "/controller_manager", "t", "joint_trajectory_controller/JointTrajectoryController"],
     )
 
     # Delay rviz start after `joint_state_broadcaster`

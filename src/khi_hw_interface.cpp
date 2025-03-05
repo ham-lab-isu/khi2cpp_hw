@@ -23,6 +23,7 @@
 #include "include/khi_hw_interface.hpp"
 #include <string>
 #include <vector>
+#include <sstream>  // For parsing digital_outputs parameter
 #include "rclcpp/rclcpp.hpp"
 #include "khi_krnx_driver.h"
 
@@ -61,6 +62,26 @@ namespace khi2cpp_hw
         ft_states_.assign(6, 0);
         ft_command_.assign(6, 0);
 
+        // -------------------------------
+        // Initialize digital outputs
+        // Check if the hardware parameters specify digital outputs as a comma separated list.
+        // For example: digital_outputs: "1,2,3"
+        if(info_.hardware_parameters.find("digital_outputs") != info_.hardware_parameters.end()){
+            std::string signals_str = info_.hardware_parameters["digital_outputs"];
+            std::istringstream ss(signals_str);
+            std::string token;
+            while(std::getline(ss, token, ',')) {
+                int sig = std::stoi(token);
+                digital_signal_numbers_.push_back(sig);
+                digital_signal_commands_.push_back(0); // default to OFF (0)
+            }
+        } else {
+            // Default to one digital output (signal number 1)
+            digital_signal_numbers_.push_back(1);
+            digital_signal_commands_.push_back(0);
+        }
+        // -------------------------------
+
 
         // Allocate space for the Krnx driver in memory; driver_ is just a pointer to the actual driver
         driver_ = new khi_robot_control::KhiRobotKrnxDriver();
@@ -81,11 +102,7 @@ namespace khi2cpp_hw
             KhiSystem::close(cont_no_);
             return CallbackReturn::ERROR;}
 
-        // Export the real robot's current position
-        //driver_->readData(cont_no_, data_);
-        //export_state_interfaces();
-
-
+        driver_->readData(cont_no_, data_);
         int jt = 0;
         ///////////////////////////////
         // Does moving this recursion after the driver initialization fix the PrimtRtcData issue?
@@ -162,9 +179,6 @@ namespace khi2cpp_hw
             command_interfaces.emplace_back(joint_name, "velocity", &joint_velocities_command_[ind++]);
         }
 
-        // append any sensor data to the command_interfaces vector
-        //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
-        
         return command_interfaces;
     }
     // --------------------------------------------------------------------------------------------
@@ -188,11 +202,10 @@ namespace khi2cpp_hw
             joint_position_[i] = data_.arm[0].pos[i];
         }
 
-        // pull the pos/vel data from data_ and assign to the joint_velocities_ and joint_position_ vectors (double)
-
-        // RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading robot joint positions %f, %f, %f, %f, %f, %f",joint_position_[0],joint_position_[1],joint_position_[2],joint_position_[3],joint_position_[4],joint_position_[5] );
-
-        //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Reading joint positions");
+        // Debug statement for reading joint states each cycle
+        /* RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), 
+            "Joint1 pos: %f, Joint2 pos: %f, Joint3 pos: %f, Joint4 pos: %f, Joint5 pos: %f, Joint6 pos: %f", 
+            data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5], data_.arm[0].pos[6]); */
 
         return return_type::OK;
     }
@@ -214,10 +227,29 @@ namespace khi2cpp_hw
 
         driver_->writeData(cont_no_, data_);
         //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
-
-        //client->write(data_);
+        // Write digital output commands.
+        // The API requires a status value of -1 for ON and 0 for OFF.
+        /* for (size_t i = 0; i < digital_signal_commands_.size(); i++)
+        {
+            int status = (digital_signal_commands_[i] == 1 ? -1 : 0);
+            int as_err_code = 0;
+            int ret = krnx_SetSignal(cont_no_, digital_signal_numbers_[i], status, &as_err_code);
+            if(ret < 0)
+            {
+                RCLCPP_ERROR(rclcpp::get_logger("KhiSystem Write Function"),
+                             "Error setting digital signal %d, error code: %d",
+                             digital_signal_numbers_[i], as_err_code);
+            }
+            else
+            {
+                RCLCPP_INFO(rclcpp::get_logger("KhiSystem Write Function"),
+                            "Digital signal %d set to %s", digital_signal_numbers_[i],
+                            (status == -1 ? "ON" : "OFF"));
+            }
+        }
+        //client->write(data_);*/
         return return_type::OK;
-    }
+    } 
     // --------------------------------------------------------------------------------------------
  
     // --------------------------------------------------------------------------------------------
@@ -227,7 +259,7 @@ namespace khi2cpp_hw
     {
         driver_->deactivate(cont_no_, data_);
         driver_->close(cont_no_);
-        rclcpp::shutdown();
+        //rclcpp::shutdown();
     }
     // --------------------------------------------------------------------------------------------
  

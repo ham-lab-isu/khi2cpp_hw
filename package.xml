@@ -24,6 +24,7 @@
   <depend>rcpputils</depend>
   <depend>realtime_tools</depend>
   <depend>trajectory_msgs</depend>
+  <depend>diagnostic_msgs</depend>
 
   <exec_depend>builtin_interfaces</exec_depend>
   <exec_depend>controller_manager</exec_depend>

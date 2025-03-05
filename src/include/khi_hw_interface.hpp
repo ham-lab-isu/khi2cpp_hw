@@ -18,6 +18,7 @@
 #include "string"
 #include "unordered_map"
 #include "vector"
+#include "sstream"
 
 #include "hardware_interface/handle.hpp"
 #include "hardware_interface/hardware_info.hpp"
@@ -60,6 +61,8 @@ protected:
   std::vector<double> joint_velocities_;
   std::vector<double> ft_states_;
   std::vector<double> ft_command_;
+  std::vector<int> digital_signal_commands_; // 1 for ON, 0 for OFF
+  std::vector<int> digital_signal_numbers_;  // digital signal numbers (e.g., 1 to 960)
 
   int cont_no_ = 0;
   bool in_sim_;
