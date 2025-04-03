@@ -20,7 +20,7 @@
 // This code is adapted from Example 7 of the ROS2 Control Demo
 //
 
-#include "include/khi_cnt_interface.hpp"
+#include <khi_robot_controller_interface.hpp>
 
 #include <stddef.h>
 #include <algorithm>

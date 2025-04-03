@@ -42,8 +42,8 @@
 // Or #include <your_pkg/srv/command.hpp>
 #include <khi_robot_msgs/srv/khi_robot_cmd.hpp>
 
-#include "khi_robot_client.h"
-#include "khi_robot_krnx_driver.h"
+#include <khi_robot_client.h>
+#include <khi_robot_krnx_driver.h>
 
 namespace khi_robot_control
 {

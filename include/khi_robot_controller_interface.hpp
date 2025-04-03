@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef KHI_CNT_INTERFACE_
-#define KHI_CNT_INTERFACE_
+#ifndef KHI_ROBOT_CONTROLLER_INTERFACE_
+#define KHI_ROBOT_CONTROLLER_INTERFACE_
 
 #include <chrono>
 #include <memory>
@@ -125,4 +125,4 @@ protected:
 
 }  // namespace khi2cpp_hw
 
-#endif  // KHI_CNT_INTERFACE_
+#endif  // KHI_ROBOT_CONTROLLER_INTERFACE_

@@ -2,16 +2,20 @@
 Written by KHI, Adapted for ROS 2 by Jakob D. Hamilton
 
 KHI_ROBOT_DRIVER_H is the header file for KHI_ROBOT_DRIVER. It 
-defines the data structures that are fed into KHI_KRNX_DRIVER.
+defines the data structures that are fed into KHI_ROBOT_KRNX_DRIVER.
 
-It also defines the methods that call the methods in KHI_KRNX_DRIVER. 
+It also defines the methods that call the methods in KHI_ROBOT_KRNX_DRIVER. 
 
 */
 
 #ifndef KHI_ROBOT_DRIVER_H
 #define KHI_ROBOT_DRIVER_H
 
-//#include <khi_robot_msgs/srv/khi_robot_cmd.hpp>
+#include <khi_robot_msgs/srv/khi_robot_cmd.hpp>
+#include <string>
+#include <cstring>
+#include <stdio.h>
+#include <stdarg.h>
 
 namespace khi_robot_control
 {
@@ -274,7 +278,7 @@ public:
     virtual bool writeData( const int& cont_no, const KhiRobotData& data ) = 0;
     virtual bool updateState( const int& cont_no, const KhiRobotData& data ) = 0;
     virtual bool getPeriodDiff( const int& cont_no, double& diff ) = 0;
-    //virtual bool commandHandler( khi_robot_msgs::srv::KhiRobotCmd::Request& req, khi_robot_msgs::srv::KhiRobotCmd::Response& res  ) = 0;
+    virtual bool commandHandler( khi_robot_msgs::srv::KhiRobotCmd::Request& req, khi_robot_msgs::srv::KhiRobotCmd::Response& res  ) = 0;
 
 protected:
     bool in_simulation;

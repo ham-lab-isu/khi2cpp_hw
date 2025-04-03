@@ -19,15 +19,63 @@
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <getopt.h>
+#include <execinfo.h>
+#include <csignal>
+#include <pthread.h>
+#include <numeric>
+
+#include <boost/accumulators/accumulators.hpp>
+#include <boost/accumulators/statistics/stats.hpp>
+#include <boost/accumulators/statistics/max.hpp>
+#include <boost/accumulators/statistics/mean.hpp>
 
 #include <rclcpp/rclcpp.hpp>
 #include <trajectory_msgs/msg/joint_trajectory.hpp>
 #include <trajectory_msgs/msg/joint_trajectory_point.hpp>
 #include <diagnostic_msgs/msg/diagnostic_array.hpp>
 #include <diagnostic_msgs/msg/diagnostic_status.hpp>
+#include <khi_robot_hardware_interface.hpp>
 
 // Convenience aliases
 using namespace std::chrono_literals;
+using std::string;
+using std::vector;
+
+
+static struct
+{
+  char *program_;
+  bool write_;
+  double period_;
+  std::string ip_;
+  bool simulation_;
+  std::string robot_;
+}
+g_options;
+
+void Usage( const string &msg = "" )
+{
+    fprintf(stderr, "Usage: %s [options]\n", g_options.program_);
+    fprintf(stderr, "  Available options\n");
+    fprintf(stderr, "    -i, --ip                    IP address for Controller\n");
+    fprintf(stderr, "    -l, --loopback              Use loopback interface for Controller (i.e. simulation mode)\n");
+    fprintf(stderr, "    -p, --period                RT loop period in msec\n");
+    fprintf(stderr, "    -v, --viewer                Viewing robot through Rviz\n");
+    fprintf(stderr, "    -r, --robot                 Robot name\n");
+    fprintf(stderr, "    -h, --help                  Print this message and exit\n");
+    if ( msg != "" )
+    {
+        fprintf(stderr, "Error: %s\n", msg.c_str());
+        exit(-1);
+    }
+    else
+    {
+        exit(0);
+    }
+}
+
+
 
 // Global performance statistics structure
 struct PerformanceStats {
@@ -38,7 +86,7 @@ struct PerformanceStats {
   std::mutex mtx;
 };
 
-// Our control loop class
+// Control loop class
 class RealTimeControl : public rclcpp::Node
 {
 public:
@@ -48,7 +96,7 @@ public:
   {
     // Create a publisher for trajectory messages.
     trajectory_pub_ = this->create_publisher<trajectory_msgs::msg::JointTrajectory>(
-      "/cx110l_controller/joint_trajectory", 10);
+      "/cx165l_controller/joint_trajectory", 10);
 
     // Create a diagnostics publisher.
     diag_pub_ = this->create_publisher<diagnostic_msgs::msg::DiagnosticArray>(
@@ -121,7 +169,7 @@ public:
     diagnostic_msgs::msg::DiagnosticArray diag_array;
     diagnostic_msgs::msg::DiagnosticStatus status;
     status.name = "RealTime Control Loop";
-    status.hardware_id = "cx110l_controller";
+    status.hardware_id = "cx165l_controller";
 
     double avg_loop_time = 0.0;
     unsigned count = 0;
@@ -134,7 +182,7 @@ public:
       }
       last = stats_->last_loop_time;
       max = stats_->max_loop_time;
-      // Reset statistics for next period if desired.
+      // Reset statistics for next period
       stats_->total_loop_time = 0.0;
       stats_->loop_count = 0;
       stats_->max_loop_time = 0.0;
@@ -176,7 +224,7 @@ int main(int argc, char ** argv)
 {
   rclcpp::init(argc, argv);
 
-  // Use a multi-threaded executor so that timers and our control loop thread can run concurrently.
+  // Use a multi-threaded executor so that timers and the control loop thread can run concurrently.
   auto node = std::make_shared<RealTimeControl>();
   rclcpp::executors::MultiThreadedExecutor executor;
   executor.add_node(node);

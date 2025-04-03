@@ -39,8 +39,8 @@ Requires installation of
 
 ## How it works
 The khi2cpp_hw package creates ros2_control nodes for simulating the Kawasaki CX-series robots in RViz and sending movement commands via the Kawasaki KRNX driver. Two interfaces are initiated when launching a controller, e.g., ```ros2 launch khi2cpp_hw cx110l_controller.launch.py```:
-- A derived controller_interface::ControllerInterface called **KhiController**. The class and its members are defined in ```khi_cnt_interface.h``` and ```khi_cnt_interface.cpp```.
-- A derived hardware_interface::SystemInterface called **KhiSystem**. The class and its members are defined in ```khi_hw_interface.h``` and ```khi_hw_interface.cpp```.
+- A derived controller_interface::ControllerInterface called **KhiController**. The class and its members are defined in ```khi_robot_controller_interface.h``` and ```khi_robot_controller_interface.cpp```.
+- A derived hardware_interface::SystemInterface called **KhiSystem**. The class and its members are defined in ```khi_robot_hardware_interface.h``` and ```khi_robot_hardware_interface.cpp```.
 
 The **KhiController** object directly interfaces with ROS2. Specifically, it creates a virtual robot controller (read: a topic with nested topics for sending and observing robot states/commands). This controller adds functionality for getting and setting movement and system state values in memory to be accessed by the hardware side of the package, i.e., **KhiSystem**. The getter and setter members are loaned from **KhiSystem** and named ```state_interface``` and ```command_interface```, respectively. These allow for position and velocity values to be sent to or read from the hardware.
 

@@ -20,12 +20,12 @@
 // This code is adapted from Example 7 of the ROS2 Control Demos
 //
 
-#include "include/khi_hw_interface.hpp"
+#include <khi_robot_hardware_interface.hpp>
 #include <string>
 #include <vector>
 #include <sstream>  // For parsing digital_outputs parameter
 #include "rclcpp/rclcpp.hpp"
-#include "khi_krnx_driver.h"
+#include <khi_robot_krnx_driver.h>
 
 namespace khi2cpp_hw
 {

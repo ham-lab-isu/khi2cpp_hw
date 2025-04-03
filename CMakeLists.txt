@@ -68,16 +68,16 @@ if(BUILD_TESTING)
 endif()
 
 # add an executable, target the dependencies
-add_executable(main src/main.cpp src/khi_krnx_driver.cpp)
+add_executable(main src/main.cpp src/khi_robot_krnx_driver.cpp)
 ament_target_dependencies(main PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} diagnostic_msgs)
 
 # add a library, target the dependencies
 add_library(
   ${PROJECT_NAME}
   SHARED
-  src/khi_hw_interface.cpp
-  src/khi_cnt_interface.cpp
-  src/khi_krnx_driver.cpp
+  src/khi_robot_hardware_interface.cpp
+  src/khi_robot_controller_interface.cpp
+  src/khi_robot_krnx_driver.cpp
 )
 ament_target_dependencies(${PROJECT_NAME} PUBLIC ${HW_IF_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS})
 
@@ -121,7 +121,7 @@ message("Found KRNX2 library at: ${krnx2_LIBRARIES}")
 
 target_compile_features(khi2cpp_hw PUBLIC cxx_std_17)
 target_include_directories(khi2cpp_hw PUBLIC
-$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/include>
+$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
 $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
 )
 
@@ -137,7 +137,7 @@ pluginlib_export_plugin_description_file(controller_interface khi2cpp_hw.xml)
 
 # INSTALL
 install(
-  DIRECTORY src/include/
+  DIRECTORY include/
   DESTINATION include/${PROJECT_NAME}
 )
 install(

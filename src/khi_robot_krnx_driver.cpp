@@ -1,12 +1,12 @@
 /*
 Written by KHI, Adapted for ROS 2 by Jakob D. Hamilton
 
-KHI_KRNX_DRIVER source file defines the methods for communicating with KRNX.h, the API for the Kawasaki controller
+KHI_ROBOT_KRNX_DRIVER source file defines the methods for communicating with KRNX.h, the API for the Kawasaki controller
 
 */
 #include <urdf/model.h>
 #include "geometry_msgs/msg/pose.hpp"
-#include "khi_krnx_driver.h"
+#include <khi_robot_krnx_driver.h>
 #include <khi_robot_msgs/srv/khi_robot_cmd.hpp>
 
 using std::placeholders::_1;
