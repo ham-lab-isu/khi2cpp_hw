@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from launch import LaunchDescription
+from launch import LaunchDescription, LaunchContext
 from launch.actions import RegisterEventHandler, DeclareLaunchArgument
 from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
@@ -25,13 +25,29 @@ from launch_ros.substitutions import FindPackageShare
 def generate_launch_description():
     # Declare arguments
     declared_arguments = []
-    declared_arguments.append(
+    declared_arguments.extend([
         DeclareLaunchArgument(
             "gui",
             default_value="true",
             description="Start RViz2 automatically with this launch file.",
+        ),
+        DeclareLaunchArgument(
+            "sim",
+            default_value="false",
+            description="Start in simulation mode. If true, the robot will not be controlled by hardware."
+        ),
+        DeclareLaunchArgument(
+            "robot_ip",
+            default_value="192.168.1.5",
+            description="IP address of the robot"
         )
-    )
+    ])
+
+    # Get the values from the declared arguments
+    sim = LaunchConfiguration("sim")
+    robot_ip = LaunchConfiguration("robot_ip")
+    gui = LaunchConfiguration("gui")
+    
     # Get URDF via xacro
     robot_description_content = Command(
         [
@@ -44,6 +60,10 @@ def generate_launch_description():
                     "cx110l.urdf.xacro",
                 ]
             ),
+            " ",
+            "robot_ip:=", robot_ip,
+            " ",
+            "sim:=", sim,
         ]
     )
     robot_description = {"robot_description": robot_description_content}
@@ -76,7 +96,6 @@ def generate_launch_description():
         parameters=[robot_description],
     )
 
-    gui = LaunchConfiguration("gui")
     rviz_node = Node(
         package="rviz2",
         executable="rviz2",

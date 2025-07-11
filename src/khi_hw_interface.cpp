@@ -38,18 +38,19 @@ namespace khi2cpp_hw
             // if on_init(info) fails, error out
             return CallbackReturn::ERROR;
         }
-        int ip_address_0 = stoi(info_.hardware_parameters["ip_address_0"]);
-        int ip_address_1 = stoi(info_.hardware_parameters["ip_address_1"]);
-        int ip_address_2 = stoi(info_.hardware_parameters["ip_address_2"]);
-        int ip_address_3 = stoi(info_.hardware_parameters["ip_address_3"]);
 
+        // the variable info_ is an inherited class member of the SystemInterface class
+        // the attributes of info_ are set in the ros2_control.xacro file in the robot hardware description package
+        std::string ip_address = info_.hardware_parameters["ip_address"];
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystem"), "----------- IP ADDRESS WAS %s", ip_address.c_str());
 
         data_.robot_name = info_.name;
         data_.arm_num = 1;
         data_.arm[0].jt_num = 6;
 
-        in_sim_ = false;
-
+        in_sim_ = info_.hardware_parameters["sim"].c_str() == "True" ? true : false;
+        RCLCPP_INFO(rclcpp::get_logger("KhiSystem"), "----------- SIM VARIABLE WAS %s, %d", info_.hardware_parameters["sim"].c_str(), in_sim_ ? 1 : 0);
+                
         // assign robot-specific data -> can this data not be grabbed from the URDF? What's our info argument?
         // robot has 6 joints and 2 interfaces
         joint_position_.assign(6, 0);
@@ -71,8 +72,7 @@ namespace khi2cpp_hw
             return CallbackReturn::ERROR;}
 
         // Call the "open" member function of driver_
-        std::string ip_address_cat = std::to_string(ip_address_0) + "." + std::to_string(ip_address_1) +"."+ std::to_string(ip_address_2)+"."+ std::to_string(ip_address_3);
-        if ( ! driver_->open(cont_no_, ip_address_cat, data_ )) {
+        if ( ! driver_->open(cont_no_, ip_address, data_ )) {
             KhiSystem::close(cont_no_);
             return CallbackReturn::ERROR;}
 
