@@ -165,7 +165,7 @@ namespace khi2cpp_hw
         }
 
         // add the terminal command interface to the command_interfaces vector
-        command_interfaces.emplace_back("terminal_command", "command", &terminal_command_interface_);
+        command_interfaces.emplace_back("as_monitor_joint", "command", &monitor_command_interface_);
 
         // append any sensor data to the command_interfaces vector
         //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
@@ -223,17 +223,17 @@ namespace khi2cpp_hw
             return return_type::ERROR;
         }
 
-        // If there's a terminal command, send it to the driver and check result
-        if (!terminal_command_.empty())
+        // If there's a monitor command, send it to the driver and check result
+        if (!monitor_command_.empty())
         {
-            RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Terminal command: %s", terminal_command_.c_str());
-            bool exec_ok = driver_->execAsMonCmd(cont_no_, terminal_command_.c_str(), nullptr, 0, nullptr);
+            RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Monitor command: %s", monitor_command_.c_str());
+            bool exec_ok = driver_->execAsMonCmd(cont_no_, monitor_command_.c_str(), nullptr, 0, nullptr);
             if (!exec_ok) {
                 RCLCPP_ERROR(rclcpp::get_logger("KhiSystemInterface"), "driver_->execAsMonCmd failed!");
-                terminal_command_.clear();
+                monitor_command_.clear();
                 return return_type::ERROR;
             }
-            terminal_command_.clear();
+            monitor_command_.clear();
         }
 
         return return_type::OK;
