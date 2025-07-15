@@ -61,6 +61,9 @@ protected:
   std::vector<double> ft_states_;
   std::vector<double> ft_command_;
 
+  std::string terminal_command_;
+  std::string &terminal_command_interface_ = terminal_command_;
+
   int cont_no_ = 0;
   bool in_sim_;
 

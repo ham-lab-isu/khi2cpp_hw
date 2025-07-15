@@ -148,6 +148,7 @@ namespace khi2cpp_hw
     {
         std::vector<hardware_interface::CommandInterface> command_interfaces;
 
+        // add the joint position interfaces to the command_interfaces vector
         int ind = 0;
         for (const auto & joint_name : joint_interfaces["position"])
         {
@@ -155,12 +156,16 @@ namespace khi2cpp_hw
             command_interfaces.emplace_back(joint_name, "position", &joint_position_command_[ind++]);
         }
 
+        // add the joint velocity interfaces to the command_interfaces vector
         ind = 0;
         for (const auto & joint_name : joint_interfaces["velocity"])
         {
             // loop through the joints and append the joint velocity to the command_interfaces vector
             command_interfaces.emplace_back(joint_name, "velocity", &joint_velocities_command_[ind++]);
         }
+
+        // add the terminal command interface to the command_interfaces vector
+        command_interfaces.emplace_back("terminal_command", "command", &terminal_command_interface_);
 
         // append any sensor data to the command_interfaces vector
         //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
@@ -209,13 +214,28 @@ namespace khi2cpp_hw
         for (auto i = 0ul; i < joint_position_.size(); i++)
         {
             data_.arm[0].cmd[i] = cmd[i].get_value();
-            //RCLCPP_INFO(rclcpp::get_logger("KhiSystem Write Function"), "--------------- KhiSystem writing to jt[%d]: %f --------------", i, cmd[i].get_value());
         }
 
-        driver_->writeData(cont_no_, data_);
-        //RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Writing joint positions: j1=%f, j2=%f, j3=%f, j4=%f, j5=%f, j6=%f ", data_.arm[0].pos[0], data_.arm[0].pos[1], data_.arm[0].pos[2], data_.arm[0].pos[3], data_.arm[0].pos[4], data_.arm[0].pos[5] );
+        // Check writeData return value
+        bool write_ok = driver_->writeData(cont_no_, data_);
+        if (!write_ok) {
+            RCLCPP_ERROR(rclcpp::get_logger("KhiSystemInterface"), "driver_->writeData failed!");
+            return return_type::ERROR;
+        }
 
-        //client->write(data_);
+        // If there's a terminal command, send it to the driver and check result
+        if (!terminal_command_.empty())
+        {
+            RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Terminal command: %s", terminal_command_.c_str());
+            bool exec_ok = driver_->execAsMonCmd(cont_no_, terminal_command_.c_str(), nullptr, 0, nullptr);
+            if (!exec_ok) {
+                RCLCPP_ERROR(rclcpp::get_logger("KhiSystemInterface"), "driver_->execAsMonCmd failed!");
+                terminal_command_.clear();
+                return return_type::ERROR;
+            }
+            terminal_command_.clear();
+        }
+
         return return_type::OK;
     }
     // --------------------------------------------------------------------------------------------
