@@ -164,8 +164,11 @@ namespace khi2cpp_hw
             command_interfaces.emplace_back(joint_name, "velocity", &joint_velocities_command_[ind++]);
         }
 
-        // add the terminal command interface to the command_interfaces vector
-        command_interfaces.emplace_back("as_monitor_joint", "command", &monitor_command_interface_);
+        // add the monitor command interface to the command_interfaces vector
+        command_interfaces.emplace_back("as_monitor_joint", "x", &as_x);
+        command_interfaces.emplace_back("as_monitor_joint", "y", &as_y);
+        command_interfaces.emplace_back("as_monitor_joint", "z", &as_z);
+        command_interfaces.emplace_back("as_monitor_joint", "feed", &as_feed);
 
         // append any sensor data to the command_interfaces vector
         //command_interfaces.emplace_back("tcp_fts_sensor", "force.x", &ft_command_[0]);
@@ -223,17 +226,18 @@ namespace khi2cpp_hw
             return return_type::ERROR;
         }
 
-        // If there's a monitor command, send it to the driver and check result
-        if (!monitor_command_.empty())
+        // If there's a monitor command in x, y, or z, send it to the driver and check result
+        if (as_x != 0.0 || as_y != 0.0 || as_z != 0.0 || as_feed != 0.0)
         {
-            RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "Monitor command: %s", monitor_command_.c_str());
-            bool exec_ok = driver_->execAsMonCmd(cont_no_, monitor_command_.c_str(), nullptr, 0, nullptr);
-            if (!exec_ok) {
-                RCLCPP_ERROR(rclcpp::get_logger("KhiSystemInterface"), "driver_->execAsMonCmd failed!");
-                monitor_command_.clear();
+            char buffer[256];
+            int as_err_code = 0;
+            bool ret = driver_->constructAsMonCmd(cont_no_, as_x, as_y, as_z, as_feed);
+            if (!ret)
+            {
+                RCLCPP_ERROR(rclcpp::get_logger("KhiSystemInterface"), "constructAsMonCmd failed with error code %d", as_err_code);
                 return return_type::ERROR;
             }
-            monitor_command_.clear();
+            RCLCPP_INFO(rclcpp::get_logger("KhiSystemInterface"), "execAsMonCmd returned: %s", buffer);
         }
 
         return return_type::OK;

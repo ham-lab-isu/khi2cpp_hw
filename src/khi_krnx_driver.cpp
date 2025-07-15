@@ -805,7 +805,6 @@ bool KhiRobotKrnxDriver::updateState( const int& cont_no, const KhiRobotData& da
             return true;
         }
     }
-
     return true;
 }
 
@@ -949,6 +948,25 @@ bool KhiRobotKrnxDriver::syncRtcPos( const int& cont_no, KhiRobotData& data )
         }
     }
     RCLCPP_INFO(rclcpp::get_logger("KRNX Driver"), "----------- KRNX ASSIGNED MOTION DATA TO KhiRobotData OBJECT HOME --------------");
+    return true;
+}
+
+bool KhiRobotKrnxDriver::constructAsMonCmd( const int& cont_no, const double& x, const double& y, const double&z, const double& feed)
+{
+    char msg[256] = { 0 };
+    int error_code = 0;
+
+    if ( !contLimitCheck( cont_no, KRNX_MAX_CONTROLLER ) ) { return false; }
+
+    snprintf( msg, sizeof(msg), "LMOVE TRANS(%.3f %.3f %.3f %.3f)", x, y, z, feed );
+    return_code = execAsMonCmd( cont_no, msg, msg_buf, sizeof(msg_buf), &error_code );
+
+    if ( !retKrnxRes( cont_no, "execAsMonCmd", return_code ) )
+    {
+        errorPrint( "Failed to execute command: %s", msg );
+        return false;
+    }
+
     return true;
 }
 

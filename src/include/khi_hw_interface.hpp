@@ -61,8 +61,10 @@ protected:
   std::vector<double> ft_states_;
   std::vector<double> ft_command_;
 
-  std::string monitor_command_;
-  std::string* &monitor_command_interface_ = &monitor_command_;
+  double as_x;
+  double as_y;
+  double as_z;
+  double as_feed;
 
   int cont_no_ = 0;
   bool in_sim_;
