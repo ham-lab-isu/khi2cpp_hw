@@ -159,6 +159,22 @@ install(TARGETS main khi2cpp_hw
   RUNTIME DESTINATION bin
 )
 
+install(
+  DIRECTORY launch ros2_control common
+  DESTINATION share/${PROJECT_NAME}
+)
+
+
+install(
+  DIRECTORY cx110l/urdf cx110l/srdf cx110l/rviz cx110l/meshes
+  DESTINATION share/${PROJECT_NAME}/cx110l
+)
+
+install(
+  DIRECTORY cx165l/urdf cx165l/srdf cx165l/rviz cx165l/meshes
+  DESTINATION share/${PROJECT_NAME}/cx165l
+)
+
 ## EXPORTS
 ament_export_targets(export_khi2cpp_hw HAS_LIBRARY_TARGET)
 ament_export_dependencies(${HW_IF_INCLUDE_DEPENDS} ${REF_GEN_INCLUDE_DEPENDS} ${CONTROLLER_INCLUDE_DEPENDS})

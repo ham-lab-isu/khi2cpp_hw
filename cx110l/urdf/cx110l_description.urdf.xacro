@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="cx110l_description">
+
+  <!-- link mass [kg] -->
+  <!-- CURRENTLY ESIMATES - NEED DATA FROM KAWASAKI -->
+  <xacro:property name="j0_mass" value="310"/>
+  <xacro:property name="j1_mass" value="526"/>
+  <xacro:property name="j2_mass" value="9"/>
+  <xacro:property name="j3_mass" value="66"/>
+  <xacro:property name="j4_mass" value="109"/>
+  <xacro:property name="j5_mass" value="72"/>
+  <xacro:property name="j6_mass" value="3"/>
+
+  <!-- joint limits [rad] -->
+  <xacro:property name="j1_lower_limit" value="${radians( 0 )}"/>
+  <xacro:property name="j1_upper_limit" value="${radians( 90 )}"/>
+  <xacro:property name="j2_lower_limit" value="${radians(-80 )}"/>
+  <xacro:property name="j2_upper_limit" value="${radians( 36 )}"/>
+  <xacro:property name="j3_lower_limit" value="${radians(-75 )}"/>
+  <xacro:property name="j3_upper_limit" value="${radians( 0 )}"/>
+  <xacro:property name="j4_lower_limit" value="${radians(-210)}"/>
+  <xacro:property name="j4_upper_limit" value="${radians( 210)}"/>
+  <xacro:property name="j5_lower_limit" value="${radians(-120)}"/>
+  <xacro:property name="j5_upper_limit" value="${radians( 120)}"/>
+  <xacro:property name="j6_lower_limit" value="${radians(-360)}"/>
+  <xacro:property name="j6_upper_limit" value="${radians( 360)}"/>
+
+  <!-- joint velocity limits [rad/s] -->
+  <xacro:property name="j1_velocity_limit" value="${radians(130)}"/>
+  <xacro:property name="j2_velocity_limit" value="${radians(125)}"/>
+  <xacro:property name="j3_velocity_limit" value="${radians(125)}"/>
+  <xacro:property name="j4_velocity_limit" value="${radians(180)}"/>
+  <xacro:property name="j5_velocity_limit" value="${radians(180)}"/>
+  <xacro:property name="j6_velocity_limit" value="${radians(280)}"/>
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-base.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-base.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j0_mass}"/>
+  </link>
+
+  <link name="link_1">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j1.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j1.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j1_mass}"/>
+  </link>
+
+  <link name="link_2">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j2.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j2.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j2_mass}"/>
+  </link>
+
+  <link name="link_3">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j3.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j3.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j3_mass}"/>
+  </link>
+
+  <link name="link_4">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j4.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j4.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j4_mass}"/>
+  </link>
+
+  <link name="link_5">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j5.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j5.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j5_mass}"/>
+  </link>
+
+  <link name="link_6">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/visual/cx165l-j6.dae"/>
+      </geometry>
+      <material
+        name="">
+        <color rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi2cpp_hw/cx110l/meshes/collision/cx165l-j6.stl"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="${j6_mass}"/>
+  </link>
+
+  <!-- base_joint fixes base_link to the environment -->
+  <joint name="base_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="-5.0546 0 0.0254" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+  </joint>
+
+  <!-- joints - main serial chain -->
+  <joint name="joint_1" type="revolute">
+    <parent link="base_link"/>
+    <child link="link_1"/>
+    <origin xyz="0 0 0.55" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="1000.0" lower="${j1_lower_limit}" upper="${j1_upper_limit}" velocity="${j1_velocity_limit}"/>
+  </joint>
+
+  <joint name="joint_2" type="revolute">
+    <parent link="link_1"/>
+    <child link="link_2"/>
+    <origin xyz="0 0.3 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="${j2_lower_limit}" upper="${j2_upper_limit}" velocity="${j2_velocity_limit}"/>
+  </joint>
+
+  <joint name="joint_3" type="revolute">
+    <parent link="link_2"/>
+    <child link="link_3"/>
+    <origin xyz="0 0 1.19" rpy="0 0 0" />
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="${j3_lower_limit}" upper="${j3_upper_limit}" velocity="${j3_velocity_limit}"/>
+  </joint>
+
+  <joint name="joint_4" type="revolute">
+    <parent link="link_3"/>
+    <child link="link_4"/>
+    <origin xyz="0 1.19 0.3" rpy="0 0 0" />
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="${j4_lower_limit}" upper="${j4_upper_limit}" velocity="${j4_velocity_limit}"/>
+  </joint>
+
+  <joint name="joint_5" type="revolute">
+    <parent link="link_4"/>
+    <child link="link_5"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="${j5_lower_limit}" upper="${j5_upper_limit}" velocity="${j5_velocity_limit}"/>
+  </joint>
+
+  <joint name="joint_6" type="revolute">
+    <parent link="link_5"/>
+    <child link="link_6"/>
+    <origin xyz="0 0.235 0" rpy="0 0 0" />
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="${j6_lower_limit}" upper="${j6_upper_limit}" velocity="${j6_velocity_limit}"/>
+  </joint>
+
+</xacro:macro>
+
+</robot>

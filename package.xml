@@ -5,6 +5,7 @@
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="jdham@iastate.edu">Jakob Hamilton</maintainer>
+  <maintainer email="walter.w.glockner@gmail.com">Walter Glockner</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

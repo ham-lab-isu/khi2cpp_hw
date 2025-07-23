@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="cx165l" xmlns:xacro="http://wiki.ros.org/xacro">
+  <group name="cx165l_manipulator">
+    <chain base_link="base_link" tip_link="tool0"/>
+  </group>
+  <!--GROUP STATES - Purpose - Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+  <group_state name="home" group="cx165l_manipulator">
+    <joint name="joint_1" value="0"/>
+    <joint name="joint_2" value="0"/>
+    <joint name="joint_3" value="0"/>
+    <joint name="joint_4" value="0"/>
+    <joint name="joint_5" value="0"/>
+    <joint name="joint_6" value="0"/>
+  </group_state>
+  <!--DISABLE COLLISIONS - By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+  <disable_collisions link1="base_link" link2="base_plate_cx165l" reason="Adjacent"/>
+  <disable_collisions link1="base_link" link2="east_wall" reason="Never"/>
+  <disable_collisions link1="base_link" link2="floor" reason="Default"/>
+  <disable_collisions link1="base_link" link2="link_1" reason="Adjacent"/>
+  <disable_collisions link1="base_link" link2="link_2" reason="Never"/>
+  <disable_collisions link1="base_link" link2="link_3" reason="Never"/>
+  <disable_collisions link1="base_link" link2="link_4" reason="Never"/>
+  <disable_collisions link1="base_link" link2="link_5" reason="Never"/>
+  <disable_collisions link1="base_link" link2="link_6" reason="Never"/>
+  <disable_collisions link1="base_link" link2="north_wall" reason="Never"/>
+  <disable_collisions link1="base_link" link2="south_wall" reason="Never"/>
+  <disable_collisions link1="base_link" link2="west_wall" reason="Never"/>
+  <disable_collisions link1="base_plate_cx165l" link2="east_wall" reason="Adjacent"/>
+  <disable_collisions link1="base_plate_cx165l" link2="floor" reason="Adjacent"/>
+  <disable_collisions link1="base_plate_cx165l" link2="link_1" reason="Never"/>
+  <disable_collisions link1="base_plate_cx165l" link2="link_2" reason="Never"/>
+  <disable_collisions link1="base_plate_cx165l" link2="link_3" reason="Never"/>
+  <disable_collisions link1="base_plate_cx165l" link2="north_wall" reason="Adjacent"/>
+  <disable_collisions link1="base_plate_cx165l" link2="south_wall" reason="Adjacent"/>
+  <disable_collisions link1="base_plate_cx165l" link2="west_wall" reason="Adjacent"/>
+  <disable_collisions link1="east_wall" link2="floor" reason="Adjacent"/>
+  <disable_collisions link1="east_wall" link2="link_1" reason="Never"/>
+  <disable_collisions link1="east_wall" link2="north_wall" reason="Adjacent"/>
+  <disable_collisions link1="east_wall" link2="south_wall" reason="Adjacent"/>
+  <disable_collisions link1="east_wall" link2="west_wall" reason="Adjacent"/>
+  <disable_collisions link1="floor" link2="link_1" reason="Never"/>
+  <disable_collisions link1="floor" link2="link_2" reason="Never"/>
+  <disable_collisions link1="floor" link2="link_3" reason="Never"/>
+  <disable_collisions link1="floor" link2="link_4" reason="Never"/>
+  <disable_collisions link1="floor" link2="link_5" reason="Never"/>
+  <disable_collisions link1="floor" link2="link_6" reason="Never"/>
+  <disable_collisions link1="floor" link2="north_wall" reason="Adjacent"/>
+  <disable_collisions link1="floor" link2="south_wall" reason="Adjacent"/>
+  <disable_collisions link1="floor" link2="west_wall" reason="Adjacent"/>
+  <disable_collisions link1="link_1" link2="link_2" reason="Adjacent"/>
+  <disable_collisions link1="link_1" link2="link_3" reason="Never"/>
+  <disable_collisions link1="link_1" link2="link_4" reason="Never"/>
+  <disable_collisions link1="link_1" link2="link_5" reason="Never"/>
+  <disable_collisions link1="link_1" link2="link_6" reason="Never"/>
+  <disable_collisions link1="link_1" link2="north_wall" reason="Never"/>
+  <disable_collisions link1="link_1" link2="south_wall" reason="Never"/>
+  <disable_collisions link1="link_1" link2="west_wall" reason="Never"/>
+  <disable_collisions link1="link_2" link2="link_3" reason="Adjacent"/>
+  <disable_collisions link1="link_2" link2="link_4" reason="Never"/>
+  <disable_collisions link1="link_2" link2="link_5" reason="Never"/>
+  <disable_collisions link1="link_2" link2="link_6" reason="Never"/>
+  <disable_collisions link1="link_2" link2="south_wall" reason="Never"/>
+  <disable_collisions link1="link_2" link2="west_wall" reason="Never"/>
+  <disable_collisions link1="link_3" link2="link_4" reason="Adjacent"/>
+  <disable_collisions link1="link_3" link2="link_5" reason="Never"/>
+  <disable_collisions link1="link_3" link2="link_6" reason="Never"/>
+  <disable_collisions link1="link_3" link2="south_wall" reason="Never"/>
+  <disable_collisions link1="link_3" link2="west_wall" reason="Never"/>
+  <disable_collisions link1="link_4" link2="link_5" reason="Adjacent"/>
+  <disable_collisions link1="link_4" link2="link_6" reason="Never"/>
+  <disable_collisions link1="link_5" link2="link_6" reason="Adjacent"/>
+  <disable_collisions link1="north_wall" link2="south_wall" reason="Adjacent"/>
+  <disable_collisions link1="north_wall" link2="west_wall" reason="Adjacent"/>
+  <disable_collisions link1="south_wall" link2="west_wall" reason="Adjacent"/>
+
+
+</robot>

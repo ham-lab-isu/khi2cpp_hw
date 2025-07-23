@@ -39,7 +39,7 @@ def generate_launch_description():
             " ",
             PathJoinSubstitution(
                 [
-                    FindPackageShare("khi2cpp_hw_description"),
+                    FindPackageShare("khi2cpp_hw"),
                     "cx110l/urdf",
                     "cx110l.urdf.xacro",
                 ]
@@ -57,7 +57,7 @@ def generate_launch_description():
     )
 
     rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("khi2cpp_hw_description"), "cx110l/rviz", "view_robot.rviz"]
+        [FindPackageShare("khi2cpp_hw"), "cx110l/rviz", "view_robot.rviz"]
     )
 
     control_node = Node(
