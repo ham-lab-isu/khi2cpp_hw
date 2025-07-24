@@ -25,10 +25,6 @@ def generate_launch_description():
     declared_arguments = []
     declared_arguments.append(
         DeclareLaunchArgument(
-            "gui",
-            default_value="true",
-            description="Start Rviz2 and Joint State Publisher gui automatically \
-        with this launch file.",
         )
     )
     # Initialize Arguments
@@ -50,10 +46,6 @@ def generate_launch_description():
     )
     robot_description = {"robot_description": robot_description_content}
 
-    rviz_config_file = PathJoinSubstitution(
-        [FindPackageShare("khi2cpp_hw"), "cx110l/rviz", "view_robot.rviz"]
-    )
-
     joint_state_publisher_node = Node(
         package="joint_state_publisher_gui",
         executable="joint_state_publisher_gui",
@@ -66,20 +58,11 @@ def generate_launch_description():
         output="both",
         parameters=[robot_description],
     )
-    
-    rviz_node = Node(
-        package="rviz2",
-        executable="rviz2",
-        name="rviz2",
-        output="log",
-        arguments=["-d", rviz_config_file],
-        condition=IfCondition(gui),
-    )
+
     #
     nodes_to_start = [
         joint_state_publisher_node,
-        robot_state_publisher_node,
-        rviz_node,
+        #robot_state_publisher_node,
     ]
 
     return LaunchDescription(declared_arguments + nodes_to_start)
